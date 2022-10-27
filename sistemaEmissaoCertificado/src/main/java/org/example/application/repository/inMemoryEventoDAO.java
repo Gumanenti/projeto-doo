@@ -7,7 +7,7 @@ import java.util.*;
 
 public class inMemoryEventoDAO implements EventoDAO {
 
-    private static final Map<String, Evento> db = new LinkedHashMap<>();
+    private static final Map<Integer, Evento> db = new LinkedHashMap<>();
     private static int idCounter; //precisa criar o id dentro da classe
 
     @Override
@@ -36,17 +36,19 @@ public class inMemoryEventoDAO implements EventoDAO {
 
     @Override
     public Integer create(Evento evento) {
-        idCounter++;
-        evento.setId(idCounter);
-        db.put(String.valueOf(idCounter), evento);
-        return idCounter;
+        //idCounter++;
+        //evento.setId(idCounter);
+        //db.put(String.valueOf(idCounter), evento);
+        Integer id = evento.getId();
+        db.put(id, evento);
+        return evento.getId();
     }
 
 
     @Override
     public Optional<Evento> findOne(Integer key) {
-        if(db.containsKey(key)){
-            return Optional.of(db.get(key));
+        if(db.containsKey(String.valueOf(key))){
+            return Optional.of(db.get(String.valueOf(key)));
         }
         return Optional.empty();
     }
@@ -60,7 +62,7 @@ public class inMemoryEventoDAO implements EventoDAO {
     public boolean update(Evento evento) {
         Integer id = evento.getId();
         if(db.containsKey(id)){
-            db.replace(String.valueOf(id), evento);
+            db.replace(id, evento);
             return true;
         }
         return false;
