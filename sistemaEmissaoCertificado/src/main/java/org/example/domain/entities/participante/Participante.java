@@ -9,11 +9,13 @@ public class Participante {
     private String nome;
     private String email;
     private String cpf;
+    private List<Certificado> certificadoList;
 
     public Participante(String nome, String email, String cpf) {
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
+        this.certificadoList = new ArrayList<>();
     }
 
     public String getNome() {
@@ -35,6 +37,14 @@ public class Participante {
     public String getCpf() {return cpf;}
 
     public void setCpf(String cpf) {this.cpf = cpf;}
+
+    public List<Certificado> getCertificadoList(){
+        return this.certificadoList;
+    }
+
+    public void addCertificado(Certificado certificado){
+        certificadoList.add(certificado);
+    }
 
     public void mostrarDados(){
         System.out.println("Participante{" +
