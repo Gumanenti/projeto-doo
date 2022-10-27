@@ -1,2 +1,18 @@
+# IDEs
+.idea/
+.vscode/
+
+# compiled class file
 /target/
 *.class
+
+# Packedges files
+*.jar
+*.war
+*.zip
+*.rar
+*.tar.gz
+
+# Log file
+*.log
+
