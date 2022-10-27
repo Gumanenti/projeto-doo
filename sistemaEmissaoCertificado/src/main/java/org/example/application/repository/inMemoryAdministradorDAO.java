@@ -13,17 +13,22 @@ public class inMemoryAdministradorDAO implements AdministradorDAO {
 
     @Override
     public Optional<Administrador> findByLogin(String login) {
+        return db.values().stream().findAny().filter(administrador -> administrador.getLogin().equals(login));
+        /*
         return db.values().stream()
                 .filter(administrador -> administrador.getLogin().equals(login))
                 .findAny();
+        */
     }
+
 
     @Override
     public String create(Administrador administrador) {
-        idCounter++;
-        administrador.setLogin(String.valueOf(idCounter));
-        db.put(String.valueOf(idCounter), administrador);
-        return String.valueOf(idCounter);
+        //idCounter++;
+        //administrador.setLogin(String.valueOf(idCounter));
+        //db.put(String.valueOf(idCounter), administrador);
+        db.put(administrador.getLogin(), administrador);
+        return administrador.getLogin();
     }
 
     @Override
