@@ -1,14 +1,13 @@
 package org.example.domain.usecases.evento;
 
 import org.example.domain.entities.evento.Evento;
-import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.utils.EntityNotFoundException;
 
-public class RemoveParticipanteUseCase {
+public class RemoveEventoUseCase {
 
     private EventoDAO eventoDAO;
 
-    public RemoveParticipanteUseCase(EventoDAO eventoDAO) {
+    public RemoveEventoUseCase(EventoDAO eventoDAO) {
         this.eventoDAO = eventoDAO;
     }
 
