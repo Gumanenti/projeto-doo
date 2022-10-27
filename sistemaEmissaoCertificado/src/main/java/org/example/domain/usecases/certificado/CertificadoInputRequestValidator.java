@@ -17,9 +17,10 @@ public class CertificadoInputRequestValidator extends Validator<Certificado> {
             notification.addError("Código não existe ou está vazio");
         }
         //ERRO + terminar os outros atributos
-        //if(nullOrEmpty(certificado.getCertificadoStatus())){
-            //notification.addError("Código não existe ou está vazio");
-        //}
+
+        if(nullOrEmpty(String.valueOf(certificado.getCertificadoStatus()))){
+            notification.addError("Código não existe ou está vazio");
+        }
 
         return notification;
     }
