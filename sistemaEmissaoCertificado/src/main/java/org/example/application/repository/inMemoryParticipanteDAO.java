@@ -21,10 +21,11 @@ public class inMemoryParticipanteDAO implements ParticipanteDAO {
 
     @Override
     public String create(Participante participante) {
-        idCounter++;
-        participante.setCpf(String.valueOf(idCounter));
-        db.put(String.valueOf(idCounter), participante);
-        return String.valueOf(idCounter);
+        //idCounter++;
+        //participante.setCpf(String.valueOf(idCounter));
+        //db.put(String.valueOf(idCounter), participante);
+        db.put(participante.getCpf(), participante);
+        return participante.getCpf();
     }
 
     @Override
