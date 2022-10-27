@@ -7,5 +7,10 @@ import org.example.domain.usecases.utils.DAO;
 import java.util.Optional;
 
 public interface EventoDAO extends DAO<Evento, Integer> {
-    Optional<Evento> findById(int id);
+
+    Optional<Evento> findById(Integer id);
+
+    Optional<Evento> findOne(String key);
+
+    boolean deleteByKey(String key);
 }
