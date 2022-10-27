@@ -36,4 +36,12 @@ public class Administrador {
     public void setPalavraChave(String palavraChave) {
         this.palavraChave = palavraChave;
     }
+
+    public String mostrarDados() {
+        return "Administrador{" +
+                "login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", palavraChave='" + palavraChave + '\'' +
+                '}';
+    }
 }
