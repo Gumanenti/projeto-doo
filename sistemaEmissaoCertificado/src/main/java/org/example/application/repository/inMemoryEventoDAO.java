@@ -47,8 +47,8 @@ public class inMemoryEventoDAO implements EventoDAO {
 
     @Override
     public Optional<Evento> findOne(Integer key) {
-        if(db.containsKey(String.valueOf(key))){
-            return Optional.of(db.get(String.valueOf(key)));
+        if(db.containsKey(key)){
+            return Optional.of(db.get(key));
         }
         return Optional.empty();
     }
