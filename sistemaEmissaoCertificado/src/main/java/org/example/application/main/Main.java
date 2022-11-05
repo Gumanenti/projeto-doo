@@ -1,5 +1,7 @@
 package org.example.application.main;
 
+import java.util.Optional;
+
 import org.example.application.repository.inMemoryAdministradorDAO;
 import org.example.application.repository.inMemoryCertificadoDAO;
 import org.example.application.repository.inMemoryEventoDAO;
@@ -7,6 +9,7 @@ import org.example.application.repository.inMemoryParticipanteDAO;
 import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.entities.certificado.Certificado;
+import org.example.domain.entities.certificado.CertificadoStatus;
 import org.example.domain.entities.evento.Evento;
 import org.example.domain.usecases.administrador.*;
 import org.example.domain.usecases.certificado.*;
@@ -24,6 +27,7 @@ public class Main {
     private static UpdateCertificadoUseCase updateCertificadoUseCase;
     private static FindCertificadoUseCase findCertificadoUseCase;
     private static RemoveCertificadoUseCase removeCertificadoUseCase;
+    private static GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
 
     private static CreateEventoUseCase createEventoUseCase;
     private static UpdateEventoUseCase updateEventoUseCase;
@@ -115,6 +119,21 @@ public class Main {
 
         tmp.mostrarDados();
 
+        CertificadoStatus certificadoStatus1 = new CertificadoStatus(true);
+
+        Certificado certificado1 = new Certificado(evento1, participante1, "1", certificadoStatus1);
+
+        certificado1.mostrarDados();
+
+        createCertificadoUseCase.insert(certificado1);
+
+        Optional<Certificado> certificadoPesq = findCertificadoUseCase.findOne("1");
+
+        certificadoPesq.get().mostrarDados();
+
+        generatePDFCertificadoUseCase.generatePDF("1", "templates/templateJPG1.jpg");
+        //generatePDFCertificadoUseCase.generatePDF("1", "C:\\Users\\Isabella\\Desktop\\IFSP\\IFSP_4\\doo\\projeto-doo\\templates.templateJPG1.jpg");
+        
     }
 
     public static void checkEvento(int id){
@@ -177,6 +196,7 @@ public class Main {
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
         removeCertificadoUseCase = new RemoveCertificadoUseCase(certificadoDAO);
+        generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO);
 
         EventoDAO eventoDAO = new inMemoryEventoDAO();
         createEventoUseCase = new CreateEventoUseCase(eventoDAO);
