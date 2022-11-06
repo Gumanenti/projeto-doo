@@ -20,7 +20,7 @@ public class LoginAdministradorUseCase {
         }
 
         if(administrador.get().getSenha() != senha){
-            throw new EntityNotFoundException("Senha incorreta.");
+            throw new EntityNotFoundException("Senha incorreta. Palavra-chave:"+ administrador.get().getPalavraChave());
         }
 
         System.out.println("Login e senha corretos. Entrando no sistema...");
