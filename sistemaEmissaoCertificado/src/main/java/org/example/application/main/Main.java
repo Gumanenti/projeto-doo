@@ -75,7 +75,7 @@ public class Main {
         findParticipanteUseCase.findOne(participante2.getCpf()).orElseThrow().mostrarDados();
 
         participante1.setEmail("email@email.com");
-        participante1.setNome("Lucas");
+        participante1.setNome("Lucas da Silva");
 
         updateParticipanteUseCase.update(participante1);
 
@@ -122,17 +122,25 @@ public class Main {
         CertificadoStatus certificadoStatus1 = new CertificadoStatus(true);
 
         Certificado certificado1 = new Certificado(evento1, participante1, "1", certificadoStatus1);
-
-        certificado1.mostrarDados();
+        Certificado certificado2 = new Certificado(evento2, participante2, "2", certificadoStatus1);
+        Certificado certificado3 = new Certificado(evento3, participante1, "3", certificadoStatus1);
+        Certificado certificado4 = new Certificado(evento4, participante2, "4", certificadoStatus1);
+        Certificado certificado5 = new Certificado(evento3, participante1, "5", certificadoStatus1);
+        Certificado certificado6 = new Certificado(evento4, participante2, "6", certificadoStatus1);
 
         createCertificadoUseCase.insert(certificado1);
-
-        Optional<Certificado> certificadoPesq = findCertificadoUseCase.findOne("1");
-
-        certificadoPesq.get().mostrarDados();
+        createCertificadoUseCase.insert(certificado2);
+        createCertificadoUseCase.insert(certificado3);
+        createCertificadoUseCase.insert(certificado4);
+        createCertificadoUseCase.insert(certificado5);
+        createCertificadoUseCase.insert(certificado6);
 
         generatePDFCertificadoUseCase.generatePDF("1", "templates/templateJPG1.jpg");
-        //generatePDFCertificadoUseCase.generatePDF("1", "C:\\Users\\Isabella\\Desktop\\IFSP\\IFSP_4\\doo\\projeto-doo\\templates.templateJPG1.jpg");
+        generatePDFCertificadoUseCase.generatePDF("2", "templates/templateJPG2.jpg");
+        generatePDFCertificadoUseCase.generatePDF("3", "templates/templateJPG3.jpg");
+        generatePDFCertificadoUseCase.generatePDF("4", "templates/templatePNG1.png");
+        generatePDFCertificadoUseCase.generatePDF("5", "templates/templatePNG2.png");
+        generatePDFCertificadoUseCase.generatePDF("6", "templates/templatePNG3.png");
         
     }
 
