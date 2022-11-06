@@ -16,3 +16,7 @@
 # Log file
 *.log
 
+# Certificados files.
+*.pdf
+*.png
+*.jpg
