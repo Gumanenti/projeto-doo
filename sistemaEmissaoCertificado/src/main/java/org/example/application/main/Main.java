@@ -22,6 +22,7 @@ public class Main {
     private static UpdateAdministradorUseCase updateAdministradorUseCase;
     private static FindAdministradorUseCase findAdministradorUseCase;
     private static RemoveAdministradorUseCase removeAdministradorUseCase;
+    private static LoginAdministradorUseCase loginAdministradorUseCase;
 
     private static CreateCertificadoUseCase createCertificadoUseCase;
     private static UpdateCertificadoUseCase updateCertificadoUseCase;
@@ -45,6 +46,8 @@ public class Main {
         Administrador administrador = new Administrador("Danilo", "123", "Java");
         createAdministradorUseCase.insert(administrador);
 
+        loginAdministradorUseCase.autentificarAdministrador("Danilo", "123");
+        
         System.out.println(findAdministradorUseCase.findOne("Danilo").get().mostrarDados());
 
         //administrador.setLogin("Isa");
@@ -198,6 +201,7 @@ public class Main {
         updateAdministradorUseCase = new UpdateAdministradorUseCase(administradorDAO);
         findAdministradorUseCase = new FindAdministradorUseCase(administradorDAO);
         removeAdministradorUseCase = new RemoveAdministradorUseCase(administradorDAO);
+        loginAdministradorUseCase = new LoginAdministradorUseCase(administradorDAO);
 
         CertificadoDAO certificadoDAO = new inMemoryCertificadoDAO();
         createCertificadoUseCase = new CreateCertificadoUseCase(certificadoDAO);
