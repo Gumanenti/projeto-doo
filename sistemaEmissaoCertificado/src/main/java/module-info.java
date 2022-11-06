@@ -1,7 +1,9 @@
-// module org.example {
-//     requires javafx.controls;
-//     requires javafx.fxml;
+ module org.example {
+    requires javafx.controls;
+    requires javafx.fxml;
 
-//     opens org.example to javafx.fxml;
-//     exports org.example;
-// }
+    opens org.example to javafx.fxml;
+     requires itextpdf;
+     requires java.desktop;
+     exports org.example;
+ }
