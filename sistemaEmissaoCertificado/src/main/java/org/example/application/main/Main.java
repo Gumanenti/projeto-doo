@@ -46,7 +46,7 @@ public class Main {
         Administrador administrador = new Administrador("Danilo", "123", "Java");
         createAdministradorUseCase.insert(administrador);
 
-        loginAdministradorUseCase.autentificarAdministrador("Danilo", "124");
+        //loginAdministradorUseCase.autentificarAdministrador("Danilo", "124");
 
         System.out.println(findAdministradorUseCase.findOne("Danilo").get().mostrarDados());
 
@@ -66,10 +66,12 @@ public class Main {
         }
 
         Participante participante1 = new Participante("Gustavo", "gustavo@email.com", "12345678911");
-        Participante participante2 = new Participante("Murilo", "murilo@email.com", "12345678912");
+        Participante participante2 = new Participante("Murilo Romano Gustavo Nascimento", "murilo@email.com", "12345678912");
+        Participante participante3 = new Participante("Renato Ribeiro Silva Santos Fernando Henrique Costa de Oliveira", "murilo@email.com", "33333333333");
 
         createParticipanteUseCase.insert(participante1);
         createParticipanteUseCase.insert(participante2);
+        createParticipanteUseCase.insert(participante3);
 
         checkPartipante(participante1);
         checkPartipante(participante2);
@@ -126,10 +128,10 @@ public class Main {
 
         Certificado certificado1 = new Certificado(evento1, participante1, "1", certificadoStatus1);
         Certificado certificado2 = new Certificado(evento2, participante2, "2", certificadoStatus1);
-        Certificado certificado3 = new Certificado(evento3, participante1, "3", certificadoStatus1);
+        Certificado certificado3 = new Certificado(evento3, participante3, "3", certificadoStatus1);
         Certificado certificado4 = new Certificado(evento4, participante2, "4", certificadoStatus1);
         Certificado certificado5 = new Certificado(evento3, participante1, "5", certificadoStatus1);
-        Certificado certificado6 = new Certificado(evento4, participante2, "6", certificadoStatus1);
+        Certificado certificado6 = new Certificado(evento4, participante3, "6", certificadoStatus1);
 
         createCertificadoUseCase.insert(certificado1);
         createCertificadoUseCase.insert(certificado2);
@@ -138,12 +140,12 @@ public class Main {
         createCertificadoUseCase.insert(certificado5);
         createCertificadoUseCase.insert(certificado6);
 
-        generatePDFCertificadoUseCase.generatePDF("1", "templates/templateJPG1.jpg");
-        generatePDFCertificadoUseCase.generatePDF("2", "templates/templateJPG2.jpg");
-        generatePDFCertificadoUseCase.generatePDF("3", "templates/templateJPG3.jpg");
-        generatePDFCertificadoUseCase.generatePDF("4", "templates/templatePNG1.png");
-        generatePDFCertificadoUseCase.generatePDF("5", "templates/templatePNG2.png");
-        generatePDFCertificadoUseCase.generatePDF("6", "templates/templatePNG3.png");
+        generatePDFCertificadoUseCase.generatePDF("1", "https://img.freepik.com/vetores-premium/borda-de-moldura-de-guilhoche-vermelha-classica-para-diploma-ou-certificado-vetor-a4-cor-cmyk-horizontal-as-camadas-sao-separadas-a-edicao-e-facil_638259-1241.jpg?w=2000");
+        generatePDFCertificadoUseCase.generatePDF("2", "https://img.freepik.com/vetores-premium/moldura-de-ouro-no-vetor-de-modelo-de-plano-de-fundo-padrao-floral-indiano_53876-169797.jpg?w=2000");
+        generatePDFCertificadoUseCase.generatePDF("3", "https://previews.123rf.com/images/taiga/taiga1104/taiga110400001/9243951-borde-de-l%C3%ADneas-entrecruzadas-cl%C3%A1sico-de-diploma-o-certificado-con-oro-sello-vector-a4-horizontal-co.jpg");
+        generatePDFCertificadoUseCase.generatePDF("4", "https://media.istockphoto.com/vectors/certificate-or-diploma-template-vector-id538881191");
+        generatePDFCertificadoUseCase.generatePDF("5", "https://img.freepik.com/vetores-premium/fundo-guilhoche-para-diploma-de-certificado-ou-design-de-moeda_462925-339.jpg?w=2000");
+        generatePDFCertificadoUseCase.generatePDF("6", "https://i.pinimg.com/originals/88/05/3b/88053b05e9672baf867500f9652d50e2.jpg");
         
     }
 
