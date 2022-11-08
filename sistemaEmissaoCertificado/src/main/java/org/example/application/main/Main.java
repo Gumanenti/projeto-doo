@@ -1,5 +1,6 @@
 package org.example.application.main;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.example.application.repository.inMemoryAdministradorDAO;
@@ -39,6 +40,7 @@ public class Main {
     private static UpdateParticipanteUseCase updateParticipanteUseCase;
     private static FindParticipanteUseCase findParticipanteUseCase;
     private static RemoveParticipanteUseCase removeParticipanteUseCase;
+    private static GenerateCSVParticpanteListUseCase generateCSVParticpanteListUseCase;
 
     public static void main(String[] args) {
         configureInjection();
@@ -89,7 +91,7 @@ public class Main {
 
         System.out.println("\n\n\n");
 
-        /* Só para não remover
+
 
         removeParticipanteUseCase.remove("12345678911");
 
@@ -97,7 +99,8 @@ public class Main {
         for(Participante p : participanteList){
             p.mostrarDados();
         }
-         */
+        generateCSVParticpanteListUseCase.generateCSV(participanteList);
+
 
         Evento evento1 = new Evento(1, "Tusca", "27/10/2022", 40, "Danilo");
         Evento evento2 = new Evento(3, "Passeata", "30/9/2023", 30, "Ivone");
@@ -223,6 +226,7 @@ public class Main {
         updateParticipanteUseCase = new UpdateParticipanteUseCase(participanteDAO);
         findParticipanteUseCase = new FindParticipanteUseCase(participanteDAO);
         removeParticipanteUseCase = new RemoveParticipanteUseCase(participanteDAO);
+        generateCSVParticpanteListUseCase = new GenerateCSVParticpanteListUseCase(participanteDAO);
 
 
 

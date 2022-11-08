@@ -5,5 +5,6 @@
     opens org.example to javafx.fxml;
      requires itextpdf;
      requires java.desktop;
+     requires opencsv;
      exports org.example;
  }
