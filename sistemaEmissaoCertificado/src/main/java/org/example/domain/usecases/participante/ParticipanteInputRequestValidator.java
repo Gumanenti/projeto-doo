@@ -1,6 +1,5 @@
 package org.example.domain.usecases.participante;
 
-import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.utils.Notification;
 import org.example.domain.usecases.utils.Validator;

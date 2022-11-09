@@ -1,7 +1,6 @@
 package org.example.domain.usecases.administrador;
 
 import org.example.domain.entities.administrador.Administrador;
-import org.example.domain.entities.participante.Participante;
 
 import java.util.List;
 import java.util.Optional;

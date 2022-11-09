@@ -1,6 +1,5 @@
 package org.example.domain.usecases.participante;
 
-import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.utils.EntityAlreadyExistsException;
 import org.example.domain.usecases.utils.Notification;
@@ -24,7 +23,7 @@ public class CreateParticipanteUseCase {
 
         String cpf = participante.getCpf(); //Ctrl + Alt + V
         if(participanteDAO.findByCPF(cpf).isPresent()){
-            throw new EntityAlreadyExistsException("Esse CPF já está em uso.");
+            throw new EntityAlreadyExistsException("CPF já está em uso.");
         }
 
         return participanteDAO.create(participante);

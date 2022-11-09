@@ -1,23 +1,40 @@
 package org.example.domain.entities.evento;
 
+import org.example.domain.entities.participante.Participante;
+
 import java.time.LocalDate;
+import java.util.List;
 
 public class Evento {
-
-    private int id;
+    private Integer id;
     private String nome;
-    private String data;
+    private LocalDate data;
     private float cargaHoraria;
     private String nomePalestrante;
+    private String pathTemplateImage;
+    private List<Participante> participanteList;
 
     public Evento(){}
 
-    public Evento(int id, String nome, String data, float cargaHoraria, String nomePalestrante) {
+    public Evento(String nome, LocalDate data, float cargaHoraria, String nomePalestrante) {
+        this(null, nome, data, cargaHoraria, nomePalestrante, null, null);
+    }
+    public Evento(Integer id, String nome, LocalDate data, float cargaHoraria, String nomePalestrante) {
+        this(id, nome, data, cargaHoraria, nomePalestrante, null, null);
+    }
+
+    public Evento(Integer id, String nome, LocalDate data, float cargaHoraria, String nomePalestrante, String pathTemplateImage) {
+        this(id, nome, data, cargaHoraria, nomePalestrante, pathTemplateImage, null);
+    }
+
+    public Evento(Integer id, String nome, LocalDate data, float cargaHoraria, String nomePalestrante, String pathTemplateImage, List<Participante> participanteList) {
         this.id = id;
         this.nome = nome;
         this.data = data;
         this.cargaHoraria = cargaHoraria;
         this.nomePalestrante = nomePalestrante;
+        this.pathTemplateImage = pathTemplateImage;
+        this.participanteList = participanteList;
     }
 
     public int getId() {return id;}
@@ -34,9 +51,9 @@ public class Evento {
         this.nome = nome;
     }
 
-    public String getData() {return data;}
+    public LocalDate getData() {return data;}
 
-    public void setData(String data) {this.data = data;}
+    public void setData(LocalDate data) {this.data = data;}
 
     public float getCargaHoraria() {
         return cargaHoraria;
@@ -54,15 +71,24 @@ public class Evento {
         this.nomePalestrante = nomePalestrante;
     }
 
-    @Override
-    public String toString() {
-        return "Evento{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", data='" + data + '\'' +
-                ", cargaHoraria=" + cargaHoraria +
-                ", nomePalestrante='" + nomePalestrante + '\'' +
-                '}';
+    public String getPathTemplateImage() {
+        return pathTemplateImage;
+    }
+
+    public void setPathTemplateImage(String pathTemplateImage) {
+        this.pathTemplateImage = pathTemplateImage;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Participante> getParticipanteList() {
+        return participanteList;
+    }
+
+    public void setParticipanteList(List<Participante> participanteList) {
+        this.participanteList = participanteList;
     }
 
     public void mostrarDados(){
@@ -72,6 +98,7 @@ public class Evento {
                 ", data='" + data + '\'' +
                 ", cargaHoraria=" + cargaHoraria +
                 ", nomePalestrante='" + nomePalestrante + '\'' +
+                ", pathTemplateImage='" + pathTemplateImage + '\'' +
                 '}');
     }
 }

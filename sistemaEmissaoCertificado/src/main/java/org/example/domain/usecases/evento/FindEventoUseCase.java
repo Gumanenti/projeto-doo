@@ -1,7 +1,6 @@
 package org.example.domain.usecases.evento;
 
 import org.example.domain.entities.evento.Evento;
-import org.example.domain.entities.participante.Participante;
 
 import java.util.List;
 import java.util.Optional;

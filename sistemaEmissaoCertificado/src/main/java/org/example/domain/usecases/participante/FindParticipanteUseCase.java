@@ -1,6 +1,5 @@
 package org.example.domain.usecases.participante;
 
-import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.participante.Participante;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class FindParticipanteUseCase {
 
     public Optional<Participante> findOne(String cpf){
         if (cpf == null) {
-            throw new IllegalArgumentException("Não pode ser nulo.");
+            throw new IllegalArgumentException("CPF não pode ser nulo.");
         }
         return participanteDAO.findOne(cpf);
     }

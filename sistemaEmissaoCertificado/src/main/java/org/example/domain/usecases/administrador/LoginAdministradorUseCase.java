@@ -8,20 +8,27 @@ import java.util.Optional;
 public class LoginAdministradorUseCase {
 
     private AdministradorDAO administradorDAO;
+    private RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase;
 
-    public LoginAdministradorUseCase(AdministradorDAO administradorDAO) {this.administradorDAO = administradorDAO;}
+    public LoginAdministradorUseCase(AdministradorDAO administradorDAO, RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase) {
+        this.administradorDAO = administradorDAO;
+        this.requestAdministradorKeyWordUseCase = requestAdministradorKeyWordUseCase;
+    }
 
     public void autentificarAdministrador(String login, String senha){
-        Optional<Administrador> administrador;
-        administrador = administradorDAO.findOne(login);
 
-        if(administrador.isEmpty()){
-            throw new EntityNotFoundException("Não foi possivel fazer o login. Administrador não encontrado");
-        }
+        if (login == null ||  login.isEmpty() || senha == null || login.isEmpty())
+            throw new IllegalArgumentException("Login e/ou senha não podem ser vazios ou nulos.");
 
-        if(administrador.get().getSenha() != senha){
-            throw new EntityNotFoundException("Senha incorreta. Palavra-chave:"+ administrador.get().getPalavraChave());
-        }
+        Optional<Administrador> admin;
+        admin = administradorDAO.findOne(login);
+
+        if(admin.isEmpty())
+            throw new EntityNotFoundException("Não foi possivel fazer o login. Login não encontrado");
+
+
+        if(!admin.get().getSenha().equals(senha))
+            requestAdministradorKeyWordUseCase.getKeyWord(login);
 
         System.out.println("Login e senha corretos. Entrando no sistema...");
     }

@@ -1,19 +1,20 @@
 package org.example.domain.entities.certificado;
 
-import org.example.domain.entities.participante.Participante;
 import org.example.domain.entities.evento.Evento;
 
 public class Certificado {
-
     private Evento evento;
-    private Participante participante;
-    public String codigo;
+    private org.example.domain.entities.participante.Participante participante;
+    private String codigo;
     private CertificadoStatus certificadoStatus;
-
     public Certificado() {
     }
 
-    public Certificado(Evento evento, Participante participante, String codigo, CertificadoStatus certificadoStatus) {
+    public Certificado(Evento evento, org.example.domain.entities.participante.Participante participante, CertificadoStatus certificadoStatus){
+        this(evento, participante,null, certificadoStatus);
+    }
+
+    public Certificado(Evento evento, org.example.domain.entities.participante.Participante participante, String codigo, CertificadoStatus certificadoStatus){
         this.evento = evento;
         this.participante = participante;
         this.codigo = codigo;
@@ -28,11 +29,11 @@ public class Certificado {
         this.evento = evento;
     }
 
-    public Participante getParticipante() {
+    public org.example.domain.entities.participante.Participante getParticipante() {
         return participante;
     }
 
-    public void setParticipante(Participante participante) {
+    public void setParticipante(org.example.domain.entities.participante.Participante participante) {
         this.participante = participante;
     }
 

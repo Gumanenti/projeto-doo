@@ -1,7 +1,6 @@
 package org.example.domain.usecases.administrador;
 
 import org.example.domain.entities.administrador.Administrador;
-import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.utils.EntityNotFoundException;
 
 public class RemoveAdministradorUseCase {

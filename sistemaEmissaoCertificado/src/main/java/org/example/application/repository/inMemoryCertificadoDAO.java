@@ -1,8 +1,6 @@
 package org.example.application.repository;
 
-import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.usecases.administrador.AdministradorDAO;
 import org.example.domain.usecases.certificado.CertificadoDAO;
 
 import java.util.*;

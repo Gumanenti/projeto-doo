@@ -1,7 +1,6 @@
 package org.example.domain.usecases.certificado;
 
 import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.usecases.utils.EntityAlreadyExistsException;
 import org.example.domain.usecases.utils.EntityNotFoundException;
 import org.example.domain.usecases.utils.Notification;
 import org.example.domain.usecases.utils.Validator;
@@ -21,7 +20,7 @@ public class UpdateCertificadoUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
         }
 
-        String codigo = certificado.getCodigo(); //Ctrl + Alt + V
+        String codigo = certificado.getCodigo();
         if(certificadoDAO.findOne(codigo).isEmpty()){
             throw new EntityNotFoundException("Certificado não encontrado.");
         }

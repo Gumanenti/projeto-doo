@@ -1,5 +1,12 @@
 package org.example.domain.usecases.certificado;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfWriter;
+import org.example.domain.entities.certificado.Certificado;
+import org.example.domain.entities.certificado.CertificadoStatus;
+import org.example.domain.usecases.utils.EntityNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -8,39 +15,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.swing.text.ParagraphView;
-
-import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.entities.certificado.CertificadoStatus;
-import org.example.domain.usecases.utils.EntityNotFoundException;
-
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.RomanList;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfWriter;
-
 public class GeneratePDFCertificadoUseCase {
     private final String pathRelatorio = "relatorios/";
 
-    private CertificadoDAO certificadoDAO;
+    private final CertificadoDAO certificadoDAO;
 
     public GeneratePDFCertificadoUseCase(CertificadoDAO certificadoDAO) {
         this.certificadoDAO = certificadoDAO;
     }
 
-    public void generatePDF(String code, String pathImage) {
+    public void generatePDF(String code) {
         Optional<Certificado> certificado;
         certificado = certificadoDAO.findOne(code);
+        String pathImage = certificado.get().getEvento().getPathTemplateImage();
 
         if (certificado.isEmpty()) {
             throw new EntityNotFoundException("Certificado não encontrado.");
@@ -59,13 +46,13 @@ public class GeneratePDFCertificadoUseCase {
 
 
             document.add(createParagraph(certificado.get().getEvento().getNome().toUpperCase(),
-                    FontFactory.getFont(FontFactory.TIMES, 20, BaseColor.GRAY), Element.ALIGN_CENTER, 0, 25));
+                    FontFactory.getFont(FontFactory.TIMES, 20, BaseColor.GRAY), Element.ALIGN_CENTER, 25));
 
             // document.add(createParagraph("______________",
             //         FontFactory.getFont(FontFactory.TIMES, 20, BaseColor.GRAY), Element.ALIGN_CENTER, 0, 0));
 
             document.add(createParagraph("Este certificado está conferido a",
-                    FontFactory.getFont(FontFactory.TIMES_ROMAN, 16), Element.ALIGN_CENTER, 0, 30));
+                    FontFactory.getFont(FontFactory.TIMES_ROMAN, 16), Element.ALIGN_CENTER, 30));
 
             int value = 50, aux;
             String name = certificado.get().getParticipante().getNome();
@@ -88,7 +75,7 @@ public class GeneratePDFCertificadoUseCase {
                     }
                     else{
                         name = name.substring(0, 14);
-                        certificado.get().setCertificadoStatus(new CertificadoStatus(false));;
+                        certificado.get().setCertificadoStatus(new CertificadoStatus(false));
                     }
                 }
             } else{
@@ -97,11 +84,11 @@ public class GeneratePDFCertificadoUseCase {
                 } else {
                     value = 50;
                 }
-                
+
             }
 
             document.add(createParagraph(name,
-                    FontFactory.getFont(FontFactory.TIMES_ITALIC, value, BaseColor.RED), Element.ALIGN_CENTER, 0, value));
+                    FontFactory.getFont(FontFactory.TIMES_ITALIC, value, BaseColor.RED), Element.ALIGN_CENTER, value));
 
             String text = "incrito sob o número do CPF " + certificado.get().getParticipante().getCpf()
                     + " por participar do evento " +
@@ -110,40 +97,38 @@ public class GeneratePDFCertificadoUseCase {
                     certificado.get().getEvento().getCargaHoraria() + " horas.";
 
             document.add(createParagraph(text,
-                    FontFactory.getFont(FontFactory.TIMES_ROMAN, 16), Element.ALIGN_CENTER,0,30));
+                    FontFactory.getFont(FontFactory.TIMES_ROMAN, 16), Element.ALIGN_CENTER, 30));
 
             Date today = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             String strDate = "Data de emissão: " + dateFormat.format(today);
 
             document.add(createParagraph(strDate,
-                    FontFactory.getFont(FontFactory.TIMES_ROMAN, 12), Element.ALIGN_CENTER, 0, 30));
+                    FontFactory.getFont(FontFactory.TIMES_ROMAN, 12), Element.ALIGN_CENTER, 30));
 
             document.add(createParagraph("VALIDAÇÃO ONLINE",
-                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10), Element.ALIGN_RIGHT, 0, 60));
+                    FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10), Element.ALIGN_RIGHT, 60));
 
-            document.add(createParagraph(certificado.get().codigo,
+            document.add(createParagraph(certificado.get().getCodigo(),
                     FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10), Element.ALIGN_RIGHT));
-                    
+
             PdfContentByte canvas = writer.getDirectContentUnder();
             Image image = Image.getInstance(pathImage);
             image.scaleAbsolute(PageSize.A4.rotate());
             image.setAbsolutePosition(0, 0);
             canvas.addImage(image);
 
-        } catch (DocumentException de) {
+        } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
-        } catch (IOException ioe) {
-            System.err.println(ioe.getMessage());
         } finally {
             document.close();
         }
     }
 
-    private Paragraph createParagraph(String mesage, Font font, int alignment, int paddingTop, int leading) {
+    private Paragraph createParagraph(String mesage, Font font, int alignment, int leading) {
         Paragraph paragraph = new Paragraph(mesage, font);
         paragraph.setAlignment(alignment);
-        paragraph.setPaddingTop(paddingTop);
+        paragraph.setPaddingTop(0);
         paragraph.setLeading(leading);
         return paragraph;
     }

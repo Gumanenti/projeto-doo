@@ -1,6 +1,5 @@
 package org.example.domain.usecases.participante;
 
-import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.utils.EntityNotFoundException;
 import org.example.domain.usecases.utils.Notification;
@@ -21,7 +20,7 @@ public class UpdateParticipanteUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
         }
 
-        String codigo = participante.getCpf(); //Ctrl + Alt + V
+        String codigo = participante.getCpf();
         if(participanteDAO.findOne(codigo).isEmpty()){
             throw new EntityNotFoundException("Participante não encontrado.");
         }

@@ -1,7 +1,6 @@
 package org.example.domain.usecases.evento;
 
 import org.example.domain.entities.evento.Evento;
-import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.utils.EntityNotFoundException;
 import org.example.domain.usecases.utils.Notification;
 import org.example.domain.usecases.utils.Validator;

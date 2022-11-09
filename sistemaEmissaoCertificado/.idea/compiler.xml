@@ -9,6 +9,7 @@
         <module name="TESTESistemaEmissaoCertificado" />
         <module name="SistemaEmissaoCertificado" />
         <module name="TesteSymploteca" />
+        <module name="sistemaEmissaoCertificado" />
       </profile>
     </annotationProcessing>
   </component>

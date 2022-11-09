@@ -1,204 +1,199 @@
 package org.example.application.main;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.example.application.repository.inMemoryAdministradorDAO;
 import org.example.application.repository.inMemoryCertificadoDAO;
 import org.example.application.repository.inMemoryEventoDAO;
 import org.example.application.repository.inMemoryParticipanteDAO;
 import org.example.domain.entities.administrador.Administrador;
-import org.example.domain.entities.participante.Participante;
 import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.entities.certificado.CertificadoStatus;
 import org.example.domain.entities.evento.Evento;
+import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.administrador.*;
 import org.example.domain.usecases.certificado.*;
-import org.example.domain.usecases.evento.*;
+import org.example.domain.usecases.evento.CreateEventoUseCase;
+import org.example.domain.usecases.evento.EventoDAO;
+import org.example.domain.usecases.evento.FindEventoUseCase;
+import org.example.domain.usecases.evento.UpdateEventoUseCase;
 import org.example.domain.usecases.participante.*;
+import org.example.domain.usecases.participanteInEvento.AgroupDataEventAndParticipantUseCase;
 
-public class Main {
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main extends Thread{
 
     private static CreateAdministradorUseCase createAdministradorUseCase;
     private static UpdateAdministradorUseCase updateAdministradorUseCase;
     private static FindAdministradorUseCase findAdministradorUseCase;
     private static RemoveAdministradorUseCase removeAdministradorUseCase;
+    private static RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase;
     private static LoginAdministradorUseCase loginAdministradorUseCase;
 
-    private static CreateCertificadoUseCase createCertificadoUseCase;
+    private static GenerateCertificadoUseCase generateCertificadoUseCase;
     private static UpdateCertificadoUseCase updateCertificadoUseCase;
     private static FindCertificadoUseCase findCertificadoUseCase;
-    private static RemoveCertificadoUseCase removeCertificadoUseCase;
     private static GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
-
+    private static GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
     private static CreateEventoUseCase createEventoUseCase;
     private static UpdateEventoUseCase updateEventoUseCase;
     private static FindEventoUseCase findEventoUseCase;
-    private static RemoveEventoUseCase removeEventoUseCase;
+    private static InvalidHashCodeCertificadoUseCase invalidHashCodeCertificadoUseCase;
+    private static AgroupDataEventAndParticipantUseCase agroupDataEventAndParticipantUseCase;
 
     private static CreateParticipanteUseCase createParticipanteUseCase;
     private static UpdateParticipanteUseCase updateParticipanteUseCase;
     private static FindParticipanteUseCase findParticipanteUseCase;
     private static RemoveParticipanteUseCase removeParticipanteUseCase;
-    private static GenerateCSVParticpanteListUseCase generateCSVParticpanteListUseCase;
+    private static AttachParticipantListUseCase attachParticipantListUseCase;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         configureInjection();
 
+        System.out.println("Caso de uso realizar Login : Fluxo normal");
         Administrador administrador = new Administrador("Danilo", "123", "Java");
         createAdministradorUseCase.insert(administrador);
+        requestLogin("Danilo", "123");
 
-        //loginAdministradorUseCase.autentificarAdministrador("Danilo", "124");
+        Thread.sleep(50);
 
-        System.out.println(findAdministradorUseCase.findOne("Danilo").get().mostrarDados());
+        System.out.println("\nCaso de uso realizar Login : Fluxo alternativo, senha inválida. (Caso de uso Fornecer dicas de palavra passe inclusa)");
+        requestLogin("Danilo", "1234");
 
-        //administrador.setLogin("Isa");
-        administrador.setSenha("321");
-        administrador.setPalavraChave("C");
-        updateAdministradorUseCase.update(administrador);
+        Thread.sleep(50);
 
-        System.out.println(findAdministradorUseCase.findOne("Danilo").get().mostrarDados());
+        System.out.println("\nCaso de uso realizar Login : Fluxo alternativo, login inválida");
+        requestLogin("Danilo2", "123");
 
-        removeAdministradorUseCase.remove("Danilo");
+        Thread.sleep(50);
 
-        if(findAdministradorUseCase.findOne("Danilo").isEmpty()){
-            System.out.println("Apagado com sucesso!");
-        }else {
-            System.out.println("Error - Adminstrador não removido!");
+        System.out.println("\nCaso de uso criar eventos : Fluxo normal");
+        Integer idEvent = createEventoUseCase.createEvent("Aulão de HTML!", LocalDate.of(2023,01,01), 20, "Tião", "https://img.freepik.com/vetores-premium/borda-de-moldura-de-guilhoche-vermelha-classica-para-diploma-ou-certificado-vetor-a4-cor-cmyk-horizontal-as-camadas-sao-separadas-a-edicao-e-facil_638259-1241.jpg?w=2000");
+        Evento e1 = findEvento(idEvent);
+        e1.mostrarDados();
+
+        Thread.sleep(50);
+
+        System.out.println("\nCaso de uso criar eventos : Fluxo alternativo, evento já cadastrado!");
+        try {
+            idEvent = createEventoUseCase.createEvent("Aulão de HTML!", LocalDate.of(2023,01,01), 20, "Tião", "https://img.freepik.com/vetores-premium/borda-de-moldura-de-guilhoche-vermelha-classica-para-diploma-ou-certificado-vetor-a4-cor-cmyk-horizontal-as-camadas-sao-separadas-a-edicao-e-facil_638259-1241.jpg?w=2000");
+        }catch (Exception e){
+            System.err.println(e.getMessage());
         }
 
-        Participante participante1 = new Participante("Gustavo", "gustavo@email.com", "12345678911");
-        Participante participante2 = new Participante("Murilo Romano Gustavo Nascimento", "murilo@email.com", "12345678912");
-        Participante participante3 = new Participante("Renato Ribeiro Silva Santos Fernando Henrique Costa de Oliveira", "murilo@email.com", "33333333333");
+        Thread.sleep(50);
 
-        createParticipanteUseCase.insert(participante1);
-        createParticipanteUseCase.insert(participante2);
-        createParticipanteUseCase.insert(participante3);
-
-        checkPartipante(participante1);
-        checkPartipante(participante2);
-
-        findParticipanteUseCase.findOne(participante1.getCpf()).orElseThrow().mostrarDados();
-        findParticipanteUseCase.findOne(participante2.getCpf()).orElseThrow().mostrarDados();
-
-        participante1.setEmail("email@email.com");
-        participante1.setNome("Lucas da Silva");
-
-        updateParticipanteUseCase.update(participante1);
-
-
-        findParticipanteUseCase.findOne(participante1.getCpf()).orElseThrow().mostrarDados();
-
-        System.out.println("\n\n\n");
-
-
-
-        removeParticipanteUseCase.remove("12345678911");
-
-        List<Participante> participanteList = findParticipanteUseCase.findAll();
-        for(Participante p : participanteList){
+        System.out.println("\nCaso de uso Listar Participante : Fluxo normal");
+        List<org.example.domain.entities.participante.Participante> participanteList = readCsvFile("participantes.csv");
+        for (org.example.domain.entities.participante.Participante p : participanteList)
             p.mostrarDados();
+
+        Thread.sleep(50);
+
+        System.out.println("\nCaso de uso Listar Participante : Alternativo, arquivo não encontrado");
+        participanteList.clear();
+        participanteList = readCsvFile("participantes2.csv");
+        for (org.example.domain.entities.participante.Participante p : participanteList)
+            p.mostrarDados();
+
+        Thread.sleep(50);
+
+        System.out.println("\nCaso de uso Agrupar dados : Fluxo normal.");
+        participanteList = readCsvFile("participantes.csv");
+        agroupDataEventAndParticipantUseCase.agroupData("Aulão de HTML!", participanteList);
+        System.out.println("Lista de Participantes no evento");
+        for (Participante p : e1.getParticipanteList())
+            p.mostrarDados();
+
+        Thread.sleep(50);
+
+        System.out.println("\nCaso de uso Agrupar dados : Fluxo alternativo, evento não cadastrado");
+        try{
+            agroupDataEventAndParticipantUseCase.agroupData("Aulão 2 de HTML!", participanteList);
+        }  catch (Exception e){
+            System.err.println(e.getMessage());
         }
-        generateCSVParticpanteListUseCase.generateCSV(participanteList);
+
+        for (Participante p : participanteList)
+            createParticipanteUseCase.insert(p);
 
 
-        Evento evento1 = new Evento(1, "Tusca", "27/10/2022", 40, "Danilo");
-        Evento evento2 = new Evento(3, "Passeata", "30/9/2023", 30, "Ivone");
-        Evento evento3 = new Evento(2, "HTML introdução", "6/1/2023", 40, "Thiago");
-        Evento evento4 = new Evento(5, "CSS Ao estremo", "27/12/2024", 40, "Endrik");
+        Thread.sleep(50);
 
-        createEventoUseCase.insert(evento1);
-        createEventoUseCase.insert(evento2);
-        createEventoUseCase.insert(evento3);
-        createEventoUseCase.insert(evento4);
+        System.out.println("\nCaso de uso Gerar certificados : Fluxo normal");
+        String hashCodeCertificado = "";
+        try{
+            hashCodeCertificado = generateCertificadoUseCase.createCertificado(e1.getId(), "12345678912");
+            System.out.println("Código Hash: " + hashCodeCertificado);
+        }  catch (Exception e){
+            System.err.println(e.getMessage());
+        }
 
-        checkEvento(evento1.getId());
+        Thread.sleep(50);
 
-        findEventoUseCase.findOne(1).orElseThrow().mostrarDados();
+        System.out.println("\nCaso de uso Gerar PDF certificado : Fluxo normal");
+        generatePDF(hashCodeCertificado);
+        checkCertificado(hashCodeCertificado);
 
-        evento1.setData("99/99/99");
-        evento1.setNome("Pós Tusca");
-        evento1.setCargaHoraria(25);
-        evento1.setNomePalestrante("Gustavo");
+        Thread.sleep(50);
 
-        updateEventoUseCase.update(evento1);
+        System.out.println("\nCaso de uso inválidar certificado : Fluxo normal");
+        invalidHashCodeCertificadoUseCase.invalidCertificado(hashCodeCertificado);
+        checkCertificado(hashCodeCertificado);
 
-        Evento tmp = findEventoUseCase.findOne(1).orElseThrow();
-
-        tmp.mostrarDados();
-
-        CertificadoStatus certificadoStatus1 = new CertificadoStatus(true);
-
-        Certificado certificado1 = new Certificado(evento1, participante1, "1", certificadoStatus1);
-        Certificado certificado2 = new Certificado(evento2, participante2, "2", certificadoStatus1);
-        Certificado certificado3 = new Certificado(evento3, participante3, "3", certificadoStatus1);
-        Certificado certificado4 = new Certificado(evento4, participante2, "4", certificadoStatus1);
-        Certificado certificado5 = new Certificado(evento3, participante1, "5", certificadoStatus1);
-        Certificado certificado6 = new Certificado(evento4, participante3, "6", certificadoStatus1);
-
-        createCertificadoUseCase.insert(certificado1);
-        createCertificadoUseCase.insert(certificado2);
-        createCertificadoUseCase.insert(certificado3);
-        createCertificadoUseCase.insert(certificado4);
-        createCertificadoUseCase.insert(certificado5);
-        createCertificadoUseCase.insert(certificado6);
-
-        generatePDFCertificadoUseCase.generatePDF("1", "https://img.freepik.com/vetores-premium/borda-de-moldura-de-guilhoche-vermelha-classica-para-diploma-ou-certificado-vetor-a4-cor-cmyk-horizontal-as-camadas-sao-separadas-a-edicao-e-facil_638259-1241.jpg?w=2000");
-        generatePDFCertificadoUseCase.generatePDF("2", "https://img.freepik.com/vetores-premium/moldura-de-ouro-no-vetor-de-modelo-de-plano-de-fundo-padrao-floral-indiano_53876-169797.jpg?w=2000");
-        generatePDFCertificadoUseCase.generatePDF("3", "https://previews.123rf.com/images/taiga/taiga1104/taiga110400001/9243951-borde-de-l%C3%ADneas-entrecruzadas-cl%C3%A1sico-de-diploma-o-certificado-con-oro-sello-vector-a4-horizontal-co.jpg");
-        generatePDFCertificadoUseCase.generatePDF("4", "https://media.istockphoto.com/vectors/certificate-or-diploma-template-vector-id538881191");
-        generatePDFCertificadoUseCase.generatePDF("5", "https://img.freepik.com/vetores-premium/fundo-guilhoche-para-diploma-de-certificado-ou-design-de-moeda_462925-339.jpg?w=2000");
-        generatePDFCertificadoUseCase.generatePDF("6", "https://i.pinimg.com/originals/88/05/3b/88053b05e9672baf867500f9652d50e2.jpg");
-        
     }
 
-    public static void checkEvento(int id){
+    public static void requestLogin(Administrador admin){
+        requestLogin(admin.getLogin(), admin.getSenha());
+    }
+
+    public static void requestLogin(String login, String senha){
         try{
-            findEventoUseCase.findOne(id);
-            System.out.println("Evento foi cadastrado!");
+            loginAdministradorUseCase.autentificarAdministrador(login, senha);
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
     }
 
-    public static void checkPartipante(String cpf){
+    public static List<org.example.domain.entities.participante.Participante> readCsvFile(String filePath){
+        List<org.example.domain.entities.participante.Participante> participanteList = new ArrayList<>();
         try{
-            findParticipanteUseCase.findOne("cpf");
-            System.out.println("Participante foi cadadtrado!");
+            participanteList = attachParticipantListUseCase.attachCsvFile(filePath);
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
+        return participanteList;
     }
 
-    public static void checkPartipante(Participante participante){
+    public static Evento findEvento(int id){
         try{
-            findParticipanteUseCase.findOne(participante.getCpf());
-            System.out.println("Participante foi cadadtrado!");
+            return findEventoUseCase.findOne(id).get();
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
-    }
-
-
-    public static void checkCertificado(Certificado c){
-        try{
-            findCertificadoUseCase.findOne(String.valueOf(c.codigo));
-            System.out.println("Certificado foi cadadtrado!");
-        }catch (Exception e){
-            System.err.println(e.getMessage());
-        }
+        return null;
     }
 
     public static void checkCertificado(String codigo){
         try{
-            findCertificadoUseCase.findOne(codigo);
-            System.out.println("Certificado foi cadadtrado!");
+            Certificado c;
+            if (findCertificadoUseCase.findOne(codigo).isPresent())
+                System.out.println("Certificado foi cadastrado!");
+            else
+                System.out.println("Certificado não existe!");
+
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
     }
 
-
+    public static void generatePDF(String code){
+        try{
+            generatePDFCertificadoUseCase.generatePDF(code);
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
 
     private static void configureInjection(){
         AdministradorDAO administradorDAO = new inMemoryAdministradorDAO();
@@ -206,29 +201,29 @@ public class Main {
         updateAdministradorUseCase = new UpdateAdministradorUseCase(administradorDAO);
         findAdministradorUseCase = new FindAdministradorUseCase(administradorDAO);
         removeAdministradorUseCase = new RemoveAdministradorUseCase(administradorDAO);
-        loginAdministradorUseCase = new LoginAdministradorUseCase(administradorDAO);
-
-        CertificadoDAO certificadoDAO = new inMemoryCertificadoDAO();
-        createCertificadoUseCase = new CreateCertificadoUseCase(certificadoDAO);
-        updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
-        findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
-        removeCertificadoUseCase = new RemoveCertificadoUseCase(certificadoDAO);
-        generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO);
+        requestAdministradorKeyWordUseCase = new RequestAdministradorKeyWordUseCase(administradorDAO);
+        loginAdministradorUseCase = new LoginAdministradorUseCase(administradorDAO, requestAdministradorKeyWordUseCase);
 
         EventoDAO eventoDAO = new inMemoryEventoDAO();
         createEventoUseCase = new CreateEventoUseCase(eventoDAO);
         updateEventoUseCase = new UpdateEventoUseCase(eventoDAO);
         findEventoUseCase = new FindEventoUseCase(eventoDAO);
-        removeEventoUseCase = new RemoveEventoUseCase(eventoDAO);
+        agroupDataEventAndParticipantUseCase = new AgroupDataEventAndParticipantUseCase(eventoDAO);
 
         ParticipanteDAO participanteDAO = new inMemoryParticipanteDAO();
         createParticipanteUseCase = new CreateParticipanteUseCase(participanteDAO);
         updateParticipanteUseCase = new UpdateParticipanteUseCase(participanteDAO);
         findParticipanteUseCase = new FindParticipanteUseCase(participanteDAO);
         removeParticipanteUseCase = new RemoveParticipanteUseCase(participanteDAO);
-        generateCSVParticpanteListUseCase = new GenerateCSVParticpanteListUseCase(participanteDAO);
+        attachParticipantListUseCase = new AttachParticipantListUseCase();
 
-
+        CertificadoDAO certificadoDAO = new inMemoryCertificadoDAO();
+        generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO);
+        generateHashCodeCertificadoUseCase = new  GenerateHashCodeCertificadoUseCase(certificadoDAO);
+        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase);
+        invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO);
+        updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
+        findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
 
     }
 }

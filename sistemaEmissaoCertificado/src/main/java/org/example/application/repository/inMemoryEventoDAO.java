@@ -8,12 +8,19 @@ import java.util.*;
 public class inMemoryEventoDAO implements EventoDAO {
 
     private static final Map<Integer, Evento> db = new LinkedHashMap<>();
-    private static int idCounter; //precisa criar o id dentro da classe
+    private static int idCounter;
 
     @Override
     public Optional<Evento> findById(Integer id) {
         return db.values().stream()
                 .filter(evento -> Objects.equals(evento.getId(), id))
+                .findAny();
+    }
+
+    @Override
+    public Optional<Evento> findByNome(String nome) {
+        return db.values().stream()
+                .filter(evento -> Objects.equals(evento.getNome(), nome))
                 .findAny();
     }
 
@@ -36,9 +43,9 @@ public class inMemoryEventoDAO implements EventoDAO {
 
     @Override
     public Integer create(Evento evento) {
-        //idCounter++;
-        //evento.setId(idCounter);
-        //db.put(String.valueOf(idCounter), evento);
+        idCounter++;
+        evento.setId(idCounter);
+        db.put(idCounter, evento);
         Integer id = evento.getId();
         db.put(id, evento);
         return evento.getId();

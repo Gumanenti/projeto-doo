@@ -1,8 +1,6 @@
 package org.example.application.repository;
 
-import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.entities.participante.Participante;
-import org.example.domain.usecases.administrador.AdministradorDAO;
 import org.example.domain.usecases.participante.ParticipanteDAO;
 
 import java.util.*;
