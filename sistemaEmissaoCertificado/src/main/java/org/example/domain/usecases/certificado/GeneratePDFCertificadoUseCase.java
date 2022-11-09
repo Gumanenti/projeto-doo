@@ -16,12 +16,13 @@ import java.util.Date;
 import java.util.Optional;
 
 public class GeneratePDFCertificadoUseCase {
-    private final String pathRelatorio = "relatorios/";
+    private final String pathRelatorio;
 
     private final CertificadoDAO certificadoDAO;
 
-    public GeneratePDFCertificadoUseCase(CertificadoDAO certificadoDAO) {
+    public GeneratePDFCertificadoUseCase(CertificadoDAO certificadoDAO, String pathRelatorio) {
         this.certificadoDAO = certificadoDAO;
+        this.pathRelatorio = pathRelatorio;
     }
 
     public void generatePDF(String code) {

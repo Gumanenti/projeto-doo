@@ -218,10 +218,11 @@ public class Main extends Thread{
         attachParticipantListUseCase = new AttachParticipantListUseCase();
 
         CertificadoDAO certificadoDAO = new inMemoryCertificadoDAO();
-        generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO);
+        String pathRelatorios = "relatorios/";
+        generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO, pathRelatorios);
         generateHashCodeCertificadoUseCase = new  GenerateHashCodeCertificadoUseCase(certificadoDAO);
         generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase);
-        invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO);
+        invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO, pathRelatorios);
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
 
