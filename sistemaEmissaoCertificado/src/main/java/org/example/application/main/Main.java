@@ -29,12 +29,12 @@ public class Main extends Thread{
     private static RemoveAdministradorUseCase removeAdministradorUseCase;
     private static RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase;
     private static LoginAdministradorUseCase loginAdministradorUseCase;
-
     private static GenerateCertificadoUseCase generateCertificadoUseCase;
     private static UpdateCertificadoUseCase updateCertificadoUseCase;
     private static FindCertificadoUseCase findCertificadoUseCase;
     private static GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
     private static GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
+    private static SendCertificateByEmailUseCase sendCertificateByEmailUseCase;
     private static CreateEventoUseCase createEventoUseCase;
     private static UpdateEventoUseCase updateEventoUseCase;
     private static FindEventoUseCase findEventoUseCase;
@@ -137,6 +137,13 @@ public class Main extends Thread{
 
         Thread.sleep(50);
 
+        System.out.println("\nCaso de uso enviar certificado : Fluxo normal");
+        sendCertificateByEmailUseCase.sendMail(hashCodeCertificado);
+
+        Thread.sleep(50);
+
+
+        // Certificado é alterado o status e apaga o arquivo.
         System.out.println("\nCaso de uso inválidar certificado : Fluxo normal");
         invalidHashCodeCertificadoUseCase.invalidCertificado(hashCodeCertificado);
         checkCertificado(hashCodeCertificado);
@@ -225,6 +232,7 @@ public class Main extends Thread{
         invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO, pathRelatorios);
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
+        sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
 
     }
 }

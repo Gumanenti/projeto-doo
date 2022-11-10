@@ -6,5 +6,6 @@
      requires itextpdf;
      requires java.desktop;
      requires opencsv;
+     requires mail;
      exports org.example;
  }
