@@ -10,12 +10,12 @@ import org.example.domain.entities.evento.Evento;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.administrador.*;
 import org.example.domain.usecases.certificado.*;
-import org.example.domain.usecases.evento.CreateEventoUseCase;
 import org.example.domain.usecases.evento.EventoDAO;
 import org.example.domain.usecases.evento.FindEventoUseCase;
-import org.example.domain.usecases.evento.UpdateEventoUseCase;
 import org.example.domain.usecases.participante.*;
 import org.example.domain.usecases.participanteInEvento.AgroupDataEventAndParticipantUseCase;
+import org.example.domain.usecases.evento.CreateEventoUseCase;
+import org.example.domain.usecases.evento.UpdateEventoUseCase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -84,8 +84,8 @@ public class Main extends Thread{
         Thread.sleep(50);
 
         System.out.println("\nCaso de uso Listar Participante : Fluxo normal");
-        List<org.example.domain.entities.participante.Participante> participanteList = readCsvFile("participantes.csv");
-        for (org.example.domain.entities.participante.Participante p : participanteList)
+        List<Participante> participanteList = readCsvFile("participantes.csv");
+        for (Participante p : participanteList)
             p.mostrarDados();
 
         Thread.sleep(50);
@@ -93,7 +93,7 @@ public class Main extends Thread{
         System.out.println("\nCaso de uso Listar Participante : Alternativo, arquivo não encontrado");
         participanteList.clear();
         participanteList = readCsvFile("participantes2.csv");
-        for (org.example.domain.entities.participante.Participante p : participanteList)
+        for (Participante p : participanteList)
             p.mostrarDados();
 
         Thread.sleep(50);
@@ -162,8 +162,8 @@ public class Main extends Thread{
         }
     }
 
-    public static List<org.example.domain.entities.participante.Participante> readCsvFile(String filePath){
-        List<org.example.domain.entities.participante.Participante> participanteList = new ArrayList<>();
+    public static List<Participante> readCsvFile(String filePath){
+        List<Participante> participanteList = new ArrayList<>();
         try{
             participanteList = attachParticipantListUseCase.attachCsvFile(filePath);
         }catch (Exception e){

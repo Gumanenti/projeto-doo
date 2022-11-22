@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.CertificadoManagementUIController">
+   <children>
+      <TableView fx:id="tableView" layoutX="33.0" layoutY="28.0" prefHeight="289.0" prefWidth="534.0">
+        <columns>
+          <TableColumn fx:id="cEvento" prefWidth="149.0" text="Evento" />
+          <TableColumn fx:id="cParticipante" prefWidth="182.0" text="Participante" />
+            <TableColumn fx:id="cCodigo" prefWidth="93.0" text="Código" />
+            <TableColumn fx:id="cStatus" prefWidth="108.0" text="Status" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnNew" layoutX="487.0" layoutY="342.0" mnemonicParsing="false" onAction="#newCertificado" text="Novo" />
+      <Button fx:id="btnEdit" layoutX="405.0" layoutY="342.0" mnemonicParsing="false" onAction="#editCertificado" text="Editar" />
+      <Button fx:id="btnDetail" layoutX="310.0" layoutY="342.0" mnemonicParsing="false" onAction="#detailCertificado" text="Detalhar" />
+      <Button fx:id="btnDelete" layoutX="224.0" layoutY="342.0" mnemonicParsing="false" onAction="#deleteCertificado" text="Deletar" />
+      <Button fx:id="btnBack" layoutX="33.0" layoutY="342.0" mnemonicParsing="false" onAction="#backToPrewview" text="Voltar" />
+   </children>
+</AnchorPane>

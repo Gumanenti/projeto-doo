@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.AdministradorManagementUIController">
+   <children>
+      <TableView layoutX="37.0" layoutY="14.0" prefHeight="291.0" prefWidth="529.0">
+        <columns>
+          <TableColumn fx:id="cLogin" prefWidth="181.0" text="Login" />
+          <TableColumn fx:id="cSenha" minWidth="0.0" prefWidth="149.0" text="Senha" />
+            <TableColumn fx:id="cPalavraChave" prefWidth="198.0" text="Palavra-Chave" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnNew" layoutX="489.0" layoutY="344.0" mnemonicParsing="false" onAction="#newAdministrador" text="Novo" />
+      <Button fx:id="btnEdit" layoutX="384.0" layoutY="344.0" mnemonicParsing="false" onAction="#editAdministrador" text="Editar" />
+      <Button fx:id="btnDetail" layoutX="276.0" layoutY="344.0" mnemonicParsing="false" onAction="#datialAdministrador" text="Detalhar" />
+      <Button fx:id="btnDelete" layoutX="182.0" layoutY="344.0" mnemonicParsing="false" onAction="#deleteAdministrador" text="Deletar" />
+      <Button fx:id="btnBack" layoutX="43.0" layoutY="344.0" mnemonicParsing="false" onAction="#backToPrewview" text="Voltar" />
+   </children>
+</AnchorPane>

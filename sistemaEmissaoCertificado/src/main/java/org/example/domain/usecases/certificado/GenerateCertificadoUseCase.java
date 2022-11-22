@@ -2,11 +2,11 @@ package org.example.domain.usecases.certificado;
 
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.certificado.CertificadoStatus;
-import org.example.domain.usecases.evento.FindEventoUseCase;
 import org.example.domain.usecases.participante.FindParticipanteUseCase;
 import org.example.domain.usecases.utils.EntityAlreadyExistsException;
 import org.example.domain.usecases.utils.Notification;
 import org.example.domain.usecases.utils.Validator;
+import org.example.domain.usecases.evento.FindEventoUseCase;
 
 public class GenerateCertificadoUseCase {
 

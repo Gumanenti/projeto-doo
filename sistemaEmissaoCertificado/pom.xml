@@ -63,7 +63,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.example.App</mainClass>
+                            <mainClass>org.example.application.view.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>
