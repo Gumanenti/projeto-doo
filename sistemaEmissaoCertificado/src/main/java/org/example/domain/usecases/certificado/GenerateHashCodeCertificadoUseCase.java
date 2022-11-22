@@ -12,9 +12,8 @@ public class GenerateHashCodeCertificadoUseCase {
     }
 
     public void generatorHashcode(Certificado c) {
-        UUID hashCode = UUID.fromString(c.getEvento().getNome() + c.getParticipante().getCpf());
+        UUID hashCode = UUID.randomUUID();
 
         c.setCodigo(hashCode.toString());
-        certificadoDAO.update(c);
     }
 }
