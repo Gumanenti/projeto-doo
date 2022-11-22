@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.CetificadoStatusUIController">
+   <children>
+      <Label layoutX="53.0" layoutY="95.0" text="Validade:" />
+      <TextField fx:id="txtValidade" layoutX="135.0" layoutY="91.0" prefHeight="25.0" prefWidth="387.0" />
+      <Button fx:id="btnConfirm" layoutX="457.0" layoutY="325.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Salvar" />
+      <Button fx:id="btnCancel" layoutX="351.0" layoutY="325.0" mnemonicParsing="false" onAction="#backToPreviewScene" text="Cancelar" />
+   </children>
+</AnchorPane>

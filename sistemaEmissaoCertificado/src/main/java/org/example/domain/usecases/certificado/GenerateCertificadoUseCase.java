@@ -1,5 +1,6 @@
 package org.example.domain.usecases.certificado;
 
+
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.certificado.CertificadoStatus;
 import org.example.domain.entities.evento.Evento;

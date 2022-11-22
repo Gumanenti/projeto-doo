@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.ParticipanteUIController">
+   <children>
+      <Label layoutX="59.0" layoutY="49.0" text="Nome:" />
+      <Label layoutX="63.0" layoutY="113.0" text="Email:" />
+      <Label layoutX="65.0" layoutY="192.0" text="CPF:" />
+      <TextField fx:id="txtNome" layoutX="136.0" layoutY="45.0" prefHeight="25.0" prefWidth="404.0" />
+      <TextField fx:id="txtEmail" layoutX="136.0" layoutY="109.0" prefHeight="25.0" prefWidth="404.0" />
+      <TextField fx:id="txtCPF" layoutX="136.0" layoutY="188.0" prefHeight="25.0" prefWidth="404.0" />
+      <Button fx:id="btnConfrm" layoutX="476.0" layoutY="333.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Salvar" />
+      <Button fx:id="btnCancel" layoutX="378.0" layoutY="333.0" mnemonicParsing="false" onAction="#backToPreviewScenne" text="Cancelar" />
+   </children>
+</AnchorPane>

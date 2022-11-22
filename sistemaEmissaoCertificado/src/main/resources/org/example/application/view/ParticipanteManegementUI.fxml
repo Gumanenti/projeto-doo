@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.ParticipanteManegementUI">
+   <children>
+      <TableView layoutX="46.0" layoutY="25.0" prefHeight="292.0" prefWidth="513.0">
+        <columns>
+          <TableColumn fx:id="cNome" prefWidth="143.0" text="Nome" />
+          <TableColumn fx:id="cEmail" prefWidth="191.0" text="Email" />
+            <TableColumn fx:id="cCPF" prefWidth="178.0" text="CPF" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnNew" layoutX="489.0" layoutY="339.0" mnemonicParsing="false" onAction="#newParticipante" text="Novo" />
+      <Button fx:id="btnEdit" layoutX="399.0" layoutY="339.0" mnemonicParsing="false" onAction="#editParticipante" text="Editar" />
+      <Button fx:id="btnDetail" layoutX="303.0" layoutY="339.0" mnemonicParsing="false" onAction="#detailParticipante" text="Detalhar" />
+      <Button fx:id="btnDelete" layoutX="209.0" layoutY="339.0" mnemonicParsing="false" onAction="#deleteParticipante" text="Deletar" />
+      <Button fx:id="btnBack" layoutX="40.0" layoutY="339.0" mnemonicParsing="false" onAction="#backToPreviewScenne" text="Voltar" />
+   </children>
+</AnchorPane>
