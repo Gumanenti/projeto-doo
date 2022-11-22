@@ -34,11 +34,12 @@ public class Main extends Thread{
     private static FindCertificadoUseCase findCertificadoUseCase;
     private static GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
     private static GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
+    private static CheckCertificadoValidatedHashCodeUseCase checkCertificadoValidatedHashCodeUseCase;
     private static SendCertificateByEmailUseCase sendCertificateByEmailUseCase;
     private static CreateEventoUseCase createEventoUseCase;
     private static UpdateEventoUseCase updateEventoUseCase;
     private static FindEventoUseCase findEventoUseCase;
-    private static InvalidHashCodeCertificadoUseCase invalidHashCodeCertificadoUseCase;
+    private static RegenerateCertificadoUseCase regenerateCertificadoUseCase;
     private static AgroupDataEventAndParticipantUseCase agroupDataEventAndParticipantUseCase;
 
     private static CreateParticipanteUseCase createParticipanteUseCase;
@@ -145,8 +146,13 @@ public class Main extends Thread{
 
         // Certificado é alterado o status e apaga o arquivo.
         System.out.println("\nCaso de uso inválidar certificado : Fluxo normal");
-        invalidHashCodeCertificadoUseCase.invalidCertificado(hashCodeCertificado);
+        regenerateCertificadoUseCase.regenerateCertificado(hashCodeCertificado);
         checkCertificado(hashCodeCertificado);
+
+        System.out.println("\nChecando todos certificado para ver se é falido ou inválido.");
+        List<Certificado> certificadoList = findCertificadoUseCase.findAll();
+        for (Certificado certificado : certificadoList)
+            checkCertificadoValidatedHashCodeUseCase.checkHashCode(certificado.getCodigo());
 
     }
 
@@ -162,7 +168,7 @@ public class Main extends Thread{
         }
     }
 
-    public static List<org.example.domain.entities.participante.Participante> readCsvFile(String filePath){
+    public static List<Participante> readCsvFile(String filePath){
         List<org.example.domain.entities.participante.Participante> participanteList = new ArrayList<>();
         try{
             participanteList = attachParticipantListUseCase.attachCsvFile(filePath);
@@ -229,9 +235,10 @@ public class Main extends Thread{
         generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO, pathRelatorios);
         generateHashCodeCertificadoUseCase = new  GenerateHashCodeCertificadoUseCase(certificadoDAO);
         generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase);
-        invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO, pathRelatorios);
+        regenerateCertificadoUseCase = new RegenerateCertificadoUseCase(certificadoDAO, generateCertificadoUseCase,pathRelatorios);
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
+        checkCertificadoValidatedHashCodeUseCase = new CheckCertificadoValidatedHashCodeUseCase(certificadoDAO);
         sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
 
     }
