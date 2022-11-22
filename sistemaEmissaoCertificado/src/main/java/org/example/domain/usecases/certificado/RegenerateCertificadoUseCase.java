@@ -6,16 +6,18 @@ import org.example.domain.entities.certificado.CertificadoStatus;
 import java.io.File;
 import java.util.Optional;
 
-public class InvalidHashCodeCertificadoUseCase {
+public class RegenerateCertificadoUseCase {
     private final CertificadoDAO certificadoDAO;
+    private final GenerateCertificadoUseCase generateCertificadoUseCase;
     private final String pathRelatorio;
 
-    public InvalidHashCodeCertificadoUseCase(CertificadoDAO certificadoDAO, String pathRelatorio) {
+    public RegenerateCertificadoUseCase(CertificadoDAO certificadoDAO, GenerateCertificadoUseCase generateCertificadoUseCase, String pathRelatorio) {
         this.certificadoDAO = certificadoDAO;
+        this.generateCertificadoUseCase = generateCertificadoUseCase;
         this.pathRelatorio = pathRelatorio;
     }
 
-    public void invalidCertificado(String hashCode){
+    public void regenerateCertificado(String hashCode){
         if (hashCode == null || hashCode.isEmpty())
             throw new RuntimeException("Código hash não pode ser vazio ou nulo!");
 
@@ -24,10 +26,11 @@ public class InvalidHashCodeCertificadoUseCase {
         certificado = certificadoDAO.findByCodigo(hashCode);
         if (certificado.isEmpty())
             throw new RuntimeException("Certificado não encontrado");
-
         certificado.get().setCertificadoStatus(new CertificadoStatus(false));
         certificadoDAO.update(certificado.get());
         deletePdfFile(hashCode);
+
+        generateCertificadoUseCase.createCertificado(certificado.get().getEvento().getId(), certificado.get().getParticipante().getCpf());
     }
 
     private void deletePdfFile(String hascode){
