@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.AdministradorManagementUIController">
    <children>
-      <TableView layoutX="37.0" layoutY="14.0" prefHeight="291.0" prefWidth="529.0">
+      <TableView fx:id="tableView" layoutX="37.0" layoutY="14.0" prefHeight="291.0" prefWidth="529.0">
         <columns>
           <TableColumn fx:id="cLogin" prefWidth="181.0" text="Login" />
           <TableColumn fx:id="cSenha" minWidth="0.0" prefWidth="149.0" text="Senha" />

@@ -25,13 +25,13 @@ public class Main extends Thread{
 
     private static CreateAdministradorUseCase createAdministradorUseCase;
     private static UpdateAdministradorUseCase updateAdministradorUseCase;
-    private static FindAdministradorUseCase findAdministradorUseCase;
-    private static RemoveAdministradorUseCase removeAdministradorUseCase;
+    public static FindAdministradorUseCase findAdministradorUseCase;
+    public static RemoveAdministradorUseCase removeAdministradorUseCase;
     private static RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase;
     private static LoginAdministradorUseCase loginAdministradorUseCase;
     private static GenerateCertificadoUseCase generateCertificadoUseCase;
     private static UpdateCertificadoUseCase updateCertificadoUseCase;
-    private static FindCertificadoUseCase findCertificadoUseCase;
+    public static FindCertificadoUseCase findCertificadoUseCase;
     private static GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
     private static GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
     private static SendCertificateByEmailUseCase sendCertificateByEmailUseCase;
