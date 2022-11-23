@@ -1,4 +1,4 @@
-package org.example.application.repository;
+package org.example.application.repository.inmemory;
 
 import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.usecases.administrador.AdministradorDAO;

@@ -1,9 +1,9 @@
 package org.example.application.main;
 
-import org.example.application.repository.inMemoryAdministradorDAO;
-import org.example.application.repository.inMemoryCertificadoDAO;
-import org.example.application.repository.inMemoryEventoDAO;
-import org.example.application.repository.inMemoryParticipanteDAO;
+import org.example.application.repository.inmemory.inMemoryAdministradorDAO;
+import org.example.application.repository.inmemory.inMemoryCertificadoDAO;
+import org.example.application.repository.inmemory.inMemoryEventoDAO;
+import org.example.application.repository.inmemory.inMemoryParticipanteDAO;
 import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.evento.Evento;
