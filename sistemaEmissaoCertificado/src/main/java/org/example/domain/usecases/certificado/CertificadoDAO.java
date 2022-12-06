@@ -6,5 +6,4 @@ import org.example.domain.usecases.utils.DAO;
 import java.util.Optional;
 
 public interface CertificadoDAO extends DAO<Certificado, String> {
-    Optional<Certificado> findByCodigo(String codigo);
 }
