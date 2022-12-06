@@ -18,6 +18,9 @@ public class Participante {
         this.certificadoList = new ArrayList<>();
     }
 
+    public Participante() {
+    }
+
     public String getNome() {
         return nome;
     }
