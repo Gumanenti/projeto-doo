@@ -19,10 +19,11 @@ public class WindowLoader extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("AdministradorManagementUI"), 640, 480);
+        scene = new Scene(loadFXML("MainUI"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
+
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -37,7 +38,6 @@ public class WindowLoader extends Application {
 
     public static void main(String[] args) throws InterruptedException {
         launch();
-
     }
 
     public static Object getController() {
