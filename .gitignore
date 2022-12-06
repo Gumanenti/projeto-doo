@@ -3,7 +3,7 @@
 .vscode/
 
 # compiled class file
-/target/
+*/target/
 *.class
 
 # Packedges files
@@ -20,3 +20,6 @@
 *.pdf
 *.png
 *.jpg
+
+# database
+databse.db
