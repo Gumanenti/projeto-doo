@@ -9,12 +9,6 @@ public class inMemoryCertificadoDAO implements CertificadoDAO {
 
     private static final Map<String, Certificado> db = new LinkedHashMap<>();
 
-    @Override
-    public Optional<Certificado> findByCodigo(String codigo) {
-        return db.values().stream()
-                .filter(certificado -> certificado.getCodigo().equals(codigo))
-                .findAny();
-    }
 
     @Override
     public String create(Certificado certificado) {

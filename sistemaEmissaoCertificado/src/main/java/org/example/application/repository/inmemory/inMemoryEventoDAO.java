@@ -9,13 +9,7 @@ public class inMemoryEventoDAO implements EventoDAO {
 
     private static final Map<Integer, Evento> db = new LinkedHashMap<>();
     private static int idCounter;
-
-    @Override
-    public Optional<Evento> findById(Integer id) {
-        return db.values().stream()
-                .filter(evento -> Objects.equals(evento.getId(), id))
-                .findAny();
-    }
+    
 
     @Override
     public Optional<Evento> findByNome(String nome) {
@@ -24,22 +18,6 @@ public class inMemoryEventoDAO implements EventoDAO {
                 .findAny();
     }
 
-    @Override
-    public Optional<Evento> findOne(String key) {
-        if(db.containsKey(key)){
-            return Optional.of(db.get(key));
-        }
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean deleteByKey(String key) {
-        if(db.containsKey(key)){
-            db.remove(key);
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public Integer create(Evento evento) {

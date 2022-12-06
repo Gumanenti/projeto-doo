@@ -8,24 +8,9 @@ import java.util.*;
 public class inMemoryAdministradorDAO implements AdministradorDAO {
 
     private static final Map<String, Administrador> db = new LinkedHashMap<>();
-    private static int idCounter; //precisa criar o id dentro da classe
-
-    @Override
-    public Optional<Administrador> findByLogin(String login) {
-        return db.values().stream().findAny().filter(administrador -> administrador.getLogin().equals(login));
-        /*
-        return db.values().stream()
-                .filter(administrador -> administrador.getLogin().equals(login))
-                .findAny();
-        */
-    }
-
 
     @Override
     public String create(Administrador administrador) {
-        //idCounter++;
-        //administrador.setLogin(String.valueOf(idCounter));
-        //db.put(String.valueOf(idCounter), administrador);
         db.put(administrador.getLogin(), administrador);
         return administrador.getLogin();
     }
