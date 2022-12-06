@@ -1,0 +1,41 @@
+package org.example.application.controller;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import org.example.application.view.WindowLoader;
+import org.example.domain.entities.administrador.Administrador;
+
+import java.io.IOException;
+
+import static org.example.application.main.Main.findAdministradorUseCase;
+import static org.example.application.main.Main.loginAdministradorUseCase;
+
+public class LoginAdministradorUIController {
+    @FXML
+    private TextField txtLogin;
+    @FXML
+    private TextField txtSenha;
+    @FXML
+    private Button btnCadastrar;
+    @FXML
+    private Button btnLogar;
+    private Administrador administrador;
+
+    private void getEntityToView(){
+        if(administrador == null){
+            administrador = new Administrador();
+        }
+        administrador.setLogin(txtLogin.getText());
+        administrador.setSenha(txtSenha.getText());
+    }
+
+    public void loginAdministrador(ActionEvent actionEvent) throws IOException{
+        getEntityToView();
+        if (loginAdministradorUseCase.autentificarAdministrador(administrador.getLogin(), administrador.getSenha())){
+            WindowLoader.setRoot("MainUI");
+        }
+    }
+
+}

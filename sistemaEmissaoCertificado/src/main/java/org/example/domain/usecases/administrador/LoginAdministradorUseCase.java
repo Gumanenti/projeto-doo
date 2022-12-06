@@ -15,11 +15,11 @@ public class LoginAdministradorUseCase {
         this.requestAdministradorKeyWordUseCase = requestAdministradorKeyWordUseCase;
     }
 
-    public void autentificarAdministrador(String login, String senha){
+    public boolean autentificarAdministrador(String login, String senha){
 
-        if (login == null ||  login.isEmpty() || senha == null || login.isEmpty())
+        if (login == null ||  login.isEmpty() || senha == null || login.isEmpty()) {
             throw new IllegalArgumentException("Login e/ou senha não podem ser vazios ou nulos.");
-
+        }
         Optional<Administrador> admin;
         admin = administradorDAO.findOne(login);
 
@@ -31,5 +31,6 @@ public class LoginAdministradorUseCase {
             requestAdministradorKeyWordUseCase.getKeyWord(login);
 
         System.out.println("Login e senha corretos. Entrando no sistema...");
+        return true;
     }
 }

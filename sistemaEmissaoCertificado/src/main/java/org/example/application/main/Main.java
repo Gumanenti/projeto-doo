@@ -7,6 +7,7 @@ import org.example.application.repository.inmemory.inMemoryParticipanteDAO;
 import org.example.application.repository.sqlite.DatabaseBuilder;
 import org.example.application.repository.sqlite.SqliteAdministradorDAO;
 import org.example.application.view.WindowLoader;
+import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.usecases.administrador.*;
 import org.example.domain.usecases.certificado.*;
 import org.example.domain.usecases.evento.*;
@@ -45,6 +46,7 @@ public class Main extends Thread{
     public static void main(String[] args) throws InterruptedException {
         configureInjection();
         setupDatabase();
+        createAdministradorUseCase.insert(new Administrador("gustavo", "123", "gustavo"));
         WindowLoader.main(args);
     }
 
