@@ -9,7 +9,7 @@
       <Label layoutX="79.0" layoutY="137.0" text="Senha:" />
       <Label layoutX="79.0" layoutY="209.0" text="Palavra-chave:" />
       <TextField fx:id="txtLogin" layoutX="140.0" layoutY="68.0" prefHeight="25.0" prefWidth="403.0" />
-      <TextField fx:id="txtSenha" layoutX="140.0" layoutY="133.0" prefHeight="25.0" prefWidth="403.0" />
+      <PasswordField fx:id="txtSenha" layoutX="140.0" layoutY="133.0" prefHeight="25.0" prefWidth="403.0"  />
       <TextField fx:id="txtPalavraChave" layoutX="184.0" layoutY="205.0" prefHeight="25.0" prefWidth="361.0" />
       <Button fx:id="btnConfirm" layoutX="491.0" layoutY="336.0" mnemonicParsing="false" onAction="#saveOrUpdate" text="Salvar" />
       <Button fx:id="btnCancel" layoutX="389.0" layoutY="336.0" mnemonicParsing="false" onAction="#backToPreviewScenne" text="Cancelar" />
