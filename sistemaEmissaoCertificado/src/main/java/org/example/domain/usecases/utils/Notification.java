@@ -13,7 +13,7 @@ public class Notification {
     }
 
     public void addError(String message, Exception e){
-        addError(message, e);
+        errors.add(new Error(message, e));
     }
 
     public boolean isCorrect(){

@@ -16,13 +16,12 @@ public class CheckCertificadoValidatedHashCodeUseCase {
 
         for(Certificado c : certificadoList)
             if(c.getCodigo().equals(hashCode))
-                if (c.getCertificadoStatus().getValidade()) {
-                    System.out.println("Certificado válido");
-                    return true;
-                }
-                else
-                    System.out.println("Certificado inválido");
+            {
+                System.out.println("Certificado válido");
+                return true;
+            }
 
+        System.out.println("Certificado inválido");
         return false;
     }
 }

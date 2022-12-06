@@ -18,8 +18,8 @@ public class RemoveAdministradorUseCase {
     }
 
     public boolean remove(Administrador administrador){
-        if(administrador == null || administradorDAO.findOne(administrador.getLogin()).isEmpty())
-            throw new EntityNotFoundException("Administrador não encontrado");
-        return administradorDAO.delete(administrador);
+        if(administrador == null || administrador.getLogin() == null)
+            throw new EntityNotFoundException("Adminstrador não pode ser nulo");
+        return remove(administrador.getLogin());
     }
 }

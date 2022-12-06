@@ -7,6 +7,7 @@ import org.example.domain.usecases.utils.Notification;
 import org.example.domain.usecases.utils.Validator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class CreateEventoUseCase {
     private EventoDAO eventoDAO;
@@ -19,16 +20,15 @@ public class CreateEventoUseCase {
         this.eventoDAO = eventoDAO;
     }
 
-    public Integer createEvent(String nome, LocalDate date, float cargaHoraria, String nomePalestrante, String pathTemplateImage){
+    public Integer createEvent(String nome, LocalDateTime date, Integer cargaHoraria, String nomePalestrante, String pathTemplateImage){
         Evento evento = new Evento(null, nome, date, cargaHoraria, nomePalestrante, pathTemplateImage);
 
         return insert(evento);
     }
 
-    private Integer insert(Evento evento){
+    public Integer insert(Evento evento){
         Validator<Evento> validator = new EventoInputRequestValidator();
         Notification notification = validator.validate(evento);
-        Integer id = null;
 
         if(notification.hasErrors()){
             throw new IllegalArgumentException(notification.errorMessage());
@@ -39,8 +39,7 @@ public class CreateEventoUseCase {
             throw new EntityAlreadyExistsException("Esse nome de evento já está em uso.");
         }
 
-        id = eventoDAO.create(evento);
+        return eventoDAO.create(evento);
 
-        return id;
     }
 }

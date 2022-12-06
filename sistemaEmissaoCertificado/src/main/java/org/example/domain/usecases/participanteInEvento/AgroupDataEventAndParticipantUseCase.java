@@ -37,7 +37,6 @@ public class AgroupDataEventAndParticipantUseCase {
         if (evento.isEmpty())
             throw new RuntimeException("Evento não existe!");
 
-        evento.get().setParticipanteList(participanteList);
         eventoDAO.update(evento.get());
     }
 }

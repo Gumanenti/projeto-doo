@@ -2,19 +2,13 @@ package org.example.domain.entities.evento;
 
 public class EventoStatus {
 
-    private int quantidade;
+    private Enum<EventoStausEnum> status;
 
-    public EventoStatus(){}
-
-    public EventoStatus(int quantidade) {
-        this.quantidade = quantidade;
+    public EventoStatus(Enum<EventoStausEnum> status) {
+        this.status = status;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public Enum<EventoStausEnum> getStatus(){
+        return status;
     }
 }

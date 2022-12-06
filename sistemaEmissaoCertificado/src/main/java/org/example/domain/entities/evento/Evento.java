@@ -1,43 +1,37 @@
 package org.example.domain.entities.evento;
 
-import org.example.domain.entities.participante.Participante;
-
-import java.time.LocalDate;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class Evento {
     private Integer id;
     private String nome;
-    private LocalDate data;
-    private float cargaHoraria;
+    private LocalDateTime data;
+    private Integer cargaHoraria;
     private String nomePalestrante;
     private String pathTemplateImage;
-    private List<Participante> participanteList;
+    private EventoStatus eventoStatus;
 
     public Evento(){}
 
-    public Evento(String nome, LocalDate data, float cargaHoraria, String nomePalestrante) {
-        this(null, nome, data, cargaHoraria, nomePalestrante, null, null);
+    public Evento(String nome, LocalDateTime data, Integer cargaHoraria, String nomePalestrante) {
+        this(null, nome, data, cargaHoraria, nomePalestrante, null);
     }
-    public Evento(Integer id, String nome, LocalDate data, float cargaHoraria, String nomePalestrante) {
-        this(id, nome, data, cargaHoraria, nomePalestrante, null, null);
-    }
-
-    public Evento(Integer id, String nome, LocalDate data, float cargaHoraria, String nomePalestrante, String pathTemplateImage) {
-        this(id, nome, data, cargaHoraria, nomePalestrante, pathTemplateImage, null);
+    public Evento(Integer id, String nome, LocalDateTime data, Integer cargaHoraria, String nomePalestrante) {
+        this(id, nome, data, cargaHoraria, nomePalestrante, null);
     }
 
-    public Evento(Integer id, String nome, LocalDate data, float cargaHoraria, String nomePalestrante, String pathTemplateImage, List<Participante> participanteList) {
+
+    public Evento(Integer id, String nome, LocalDateTime data, Integer cargaHoraria, String nomePalestrante, String pathTemplateImage) {
         this.id = id;
         this.nome = nome;
         this.data = data;
         this.cargaHoraria = cargaHoraria;
         this.nomePalestrante = nomePalestrante;
         this.pathTemplateImage = pathTemplateImage;
-        this.participanteList = participanteList;
     }
 
-    public int getId() {return id;}
+    public Integer getId() {return id;}
 
     public void setId(int id) {
         this.id = id;
@@ -51,15 +45,15 @@ public class Evento {
         this.nome = nome;
     }
 
-    public LocalDate getData() {return data;}
+    public LocalDateTime getData() {return data;}
 
-    public void setData(LocalDate data) {this.data = data;}
+    public void setData(LocalDateTime data) {this.data = data;}
 
-    public float getCargaHoraria() {
+    public Integer getCargaHoraria() {
         return cargaHoraria;
     }
 
-    public void setCargaHoraria(float cargaHoraria) {
+    public void setCargaHoraria(Integer cargaHoraria) {
         this.cargaHoraria = cargaHoraria;
     }
 
@@ -83,12 +77,12 @@ public class Evento {
         this.id = id;
     }
 
-    public List<Participante> getParticipanteList() {
-        return participanteList;
+    public EventoStatus getEventoStatus() {
+        return eventoStatus;
     }
 
-    public void setParticipanteList(List<Participante> participanteList) {
-        this.participanteList = participanteList;
+    public void setEventoStatus(EventoStatus eventoStatus) {
+        this.eventoStatus = eventoStatus;
     }
 
     public void mostrarDados(){

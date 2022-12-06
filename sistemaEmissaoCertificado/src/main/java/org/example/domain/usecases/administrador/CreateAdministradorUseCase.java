@@ -22,7 +22,7 @@ public class CreateAdministradorUseCase {
         }
 
         String login = administrador.getLogin(); //Ctrl + Alt + V
-        if(administradorDAO.findByLogin(login).isPresent()){
+        if(administradorDAO.findOne(login).isPresent()){
             throw new EntityAlreadyExistsException("Esse Login já está em uso.");
         }
 
