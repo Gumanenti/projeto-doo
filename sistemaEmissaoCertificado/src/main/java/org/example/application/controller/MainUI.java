@@ -3,19 +3,14 @@ package org.example.application.controller;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.application.view.WindowLoader;
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.evento.Evento;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +19,7 @@ import static org.example.application.main.Main.findEventoUseCase;
 
 public class MainUI {
 
+    public Label hashCodeNotFound;
     @FXML
     private TextField txtBuscarCertificado;
     @FXML
@@ -102,6 +98,9 @@ public class MainUI {
                 WindowLoader.setRoot("CertificadoUI");
                 CertificadoUIController controller = (CertificadoUIController) WindowLoader.getController();
                 controller.setCertificado(certificado.get());
+            }
+            else {
+                hashCodeNotFound.setVisible(true);
             }
         }
     }
