@@ -41,6 +41,7 @@ public class EventoUIController {
     private Button btnCancel;
 
     private Evento evento;
+    private String pathImage = "";
 
     @FXML
     private void initialize(){
@@ -64,6 +65,7 @@ public class EventoUIController {
                 sHora.getValue(),
                 sMinutos.getValue()
         ));
+        evento.setPathTemplateImage(pathImage);
     }
 
     private void setEntityIntoView(){
@@ -73,6 +75,7 @@ public class EventoUIController {
         dpData.setValue(LocalDate.parse(evento.getData().format(DateTimeFormatter.ISO_DATE)));
         valueHora.setValue(evento.getData().getHour());
         valueMinutos.setValue(evento.getData().getMinute());
+        pathImage = evento.getPathTemplateImage();
     }
 
     public void saveOrUpdate() throws IOException {
@@ -132,10 +135,7 @@ public class EventoUIController {
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null && !selectedFile.getAbsolutePath().isEmpty()) {
-            if (evento == null)
-                    evento = new Evento();
-            evento.setPathTemplateImage(selectedFile.getAbsolutePath());
-
+            pathImage = selectedFile.getAbsolutePath();
         }
     }
 }
