@@ -48,7 +48,8 @@ public class CertificadoUIController {
         txtCodigo.setText(certificado.getCodigo());
         txtCertificadoStatus.setText(String.valueOf(certificado.getCertificadoStatus()));
     }
-    public void backToPreviewScene(ActionEvent actionEvent) {
+    public void backToPreviewScene(ActionEvent actionEvent) throws IOException {
+        WindowLoader.setRoot("CertificadoManagementUI");
     }
 
     public void saveOrUpdate(ActionEvent actionEvent) throws IOException {
