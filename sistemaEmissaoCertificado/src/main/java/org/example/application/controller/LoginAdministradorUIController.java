@@ -9,7 +9,6 @@ import org.example.domain.entities.administrador.Administrador;
 
 import java.io.IOException;
 
-import static org.example.application.main.Main.findAdministradorUseCase;
 import static org.example.application.main.Main.loginAdministradorUseCase;
 
 public class LoginAdministradorUIController {
@@ -33,8 +32,12 @@ public class LoginAdministradorUIController {
 
     public void loginAdministrador(ActionEvent actionEvent) throws IOException{
         getEntityToView();
-        if (loginAdministradorUseCase.autentificarAdministrador(administrador.getLogin(), administrador.getSenha())){
+        try{
+            loginAdministradorUseCase.autentificarAdministrador(administrador);
             WindowLoader.setRoot("MainUI");
+        }catch (Exception e){
+            System.err.println(e);
+
         }
     }
 
