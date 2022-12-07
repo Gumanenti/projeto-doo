@@ -28,12 +28,12 @@ public class GeneratePDFCertificadoUseCase {
     public void generatePDF(String code) {
         Optional<Certificado> certificado;
         certificado = certificadoDAO.findOne(code);
-        String pathImage = certificado.get().getEvento().getPathTemplateImage();
 
         if (certificado.isEmpty()) {
             throw new EntityNotFoundException("Certificado não encontrado.");
         }
 
+        String pathImage = certificado.get().getEvento().getPathTemplateImage();
         certificado.get().getParticipante();
         Document document = new Document(PageSize.A4.rotate(), 180, 180, 90, 100);
 
