@@ -1,8 +1,8 @@
 package org.example.application.controller;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,7 +35,7 @@ public class CertificadoManagementUIController {
     private void initialize(){
         bindTableViewToItensList();
         bindColumnToValueSources();
-        //loadDataAndShow();
+        loadDataAndShow();
     }
 
     private void loadDataAndShow() {
@@ -45,11 +45,11 @@ public class CertificadoManagementUIController {
     }
 
     private void bindColumnToValueSources() {
-        cEvento.setCellValueFactory(new PropertyValueFactory<>("evento"));
-        cParticipante.setCellValueFactory(new PropertyValueFactory<>("participante"));
+        cEvento.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getEvento().getNome()));
+        cParticipante.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getParticipante().getNome()));
         cCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         cStatus.setCellValueFactory(new PropertyValueFactory<>("certificadoStatus"));
-
+        cStatus.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCertificadoStatus().toString()));
     }
 
     private void bindTableViewToItensList() {
@@ -57,35 +57,28 @@ public class CertificadoManagementUIController {
         tableView.setItems(tableData);
     }
 
-    private void showCertificadoInMode(UIMode mode) throws IOException {
+    private void showCertificadoInMode() throws IOException {
         Certificado selectedItem = tableView.getSelectionModel().getSelectedItem();
         if(selectedItem != null){
             WindowLoader.setRoot("CertificadoUI");
             CertificadoUIController controller = (CertificadoUIController) WindowLoader.getController();
-            controller.setCertificado(selectedItem, mode);
+            controller.setCertificado(selectedItem, UIMode.VIEW);
         }
     }
 
-    public void newCertificado(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("CertificadoUI");
+    public void detailCertificado() throws IOException {
+        showCertificadoInMode();
     }
 
-    public void editCertificado(ActionEvent actionEvent) throws IOException {
-        showCertificadoInMode(UIMode.UPDATE);
-    }
-
-    public void detailCertificado(ActionEvent actionEvent) throws IOException {
-        showCertificadoInMode(UIMode.VIEW);
-    }
-
-    public void invalidCertificado(ActionEvent actionEvent) {
+    public void invalidCertificado() {
         Certificado selectedItem = tableView.getSelectionModel().getSelectedItem();
         if(selectedItem != null) {
             invalidHashCodeCertificadoUseCase.invalidCertificado(selectedItem.getCodigo());
         }
+        loadDataAndShow();
     }
 
-    public void backToPrewview(ActionEvent actionEvent) throws IOException {
+    public void backToPrewview() throws IOException {
         WindowLoader.setRoot("MainUI");
     }
 }
