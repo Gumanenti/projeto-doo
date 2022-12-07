@@ -22,7 +22,8 @@ public class DatabaseBuilder {
         try (Statement statement = ConnectionFactory.createStatement()) {
             statement.addBatch(createTableAdministrador());
             statement.addBatch(createTableEvento());
-            statement.addBatch(createTableCertificados());
+            statement.addBatch(createTableCertificado());
+            statement.addBatch(createTableParticipante());
             statement.executeBatch();
 
             System.out.println("Database successfully created.");
@@ -60,7 +61,7 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    private String createTableCertificados() {
+    private String createTableCertificado() {
 
         StringBuilder builder = new StringBuilder();
 
@@ -69,10 +70,23 @@ public class DatabaseBuilder {
                 .append("eventId INTEGER NOT NULL, \n")
                 .append("participantCpf TEXT NOT NULL, \n")
                 .append("status TEXT NOT NULL, \n")
-                .append("FOREIGN KEY(eventID) references Evento(id) \n")
+                .append("FOREIGN KEY(eventID) references Evento(id), \n")
+                .append("FOREIGN KEY(participantCpf) REFERENCES Participante(cpf) \n")
                 .append("); \n");
 
         return builder.toString();
     }
 
+    private String createTableParticipante() {
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("CREATE TABLE Participante (\n")
+                .append("cpf TEXT PRIMARY KEY, \n")
+                .append("name text NOT NULL, \n")
+                .append("email TEXT NOT NULL \n")
+                .append("); \n");
+
+        return builder.toString();
+    }
 }
