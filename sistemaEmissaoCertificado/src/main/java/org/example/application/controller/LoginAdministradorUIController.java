@@ -21,6 +21,7 @@ public class LoginAdministradorUIController {
     @FXML
     private Button btnLogar;
     private Administrador administrador;
+    private Integer numTentativas=0;
 
     private void getEntityToView(){
         if(administrador == null){
@@ -37,8 +38,17 @@ public class LoginAdministradorUIController {
             WindowLoader.setRoot("MainUI");
         }catch (Exception e){
             System.err.println(e);
+            numTentativas ++;
+            if (numTentativas == 3){
+                numTentativas = 0;
+                //tela com a palavra-chave
+            }
 
         }
+    }
+
+    public void cadastrarAdministrador(ActionEvent actionEvent) throws IOException{
+        WindowLoader.setRoot("AdminitradorUI");
     }
 
 }
