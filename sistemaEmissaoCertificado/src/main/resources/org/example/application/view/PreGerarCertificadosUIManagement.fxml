@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.PreGerarCertificadosUIManagement">
+    <children>
+        <Label alignment="CENTER" prefHeight="48.0" prefWidth="600.0" text="Emissão de certificados" />
+        <ComboBox fx:id="cbEvento" layoutX="42.0" layoutY="47.0" prefHeight="16.0" prefWidth="517.0" />
+        <TableView fx:id="tableView" layoutX="42.0" layoutY="85.0" prefHeight="255.0" prefWidth="517.0">
+            <columns>
+                <TableColumn fx:id="cCpf" prefWidth="130.0" text="CPF" />
+                <TableColumn fx:id="cName" prefWidth="196.0" text="Nome" />
+                <TableColumn fx:id="cEmail" prefWidth="190.0" text="Email" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnBack" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#backToPreView" text="Voltar" />
+        <Button fx:id="btnClearTable" layoutX="73.0" layoutY="353.0" mnemonicParsing="false" onAction="#clearTable" text="Limpar" />
+        <Button fx:id="btnAnexarCSV" layoutX="138.0" layoutY="353.0" mnemonicParsing="false" onAction="#loadCSVFile" text="Anexar CSV" />
+        <Button fx:id="btnRemoveParticipant" layoutX="237.0" layoutY="353.0" mnemonicParsing="false" onAction="#removeParticipant" prefHeight="24.0" prefWidth="69.0" text="Rmover" />
+        <Button fx:id="btnEditParticipant" layoutX="306.0" layoutY="353.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="24.0" prefWidth="57.0" text="Editar" />
+        <Button fx:id="btnDeleteParticipant" layoutX="363.0" layoutY="353.0" mnemonicParsing="false" onAction="#addParticipant" prefHeight="24.0" prefWidth="84.0" text="Adicionar" />
+        <Button fx:id="btnGenerateCertificados" layoutX="449.0" layoutY="353.0" mnemonicParsing="false" onAction="#generateCertificados" prefWidth="137.0" text="Emitir Cetificados" />
+
+    </children>
+</AnchorPane>
