@@ -80,13 +80,13 @@ public class Main extends Thread{
         String pathRelatorios = "relatorios/";
         generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO, pathRelatorios);
         generateHashCodeCertificadoUseCase = new  GenerateHashCodeCertificadoUseCase(certificadoDAO);
-        sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
-        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase, sendCertificateByEmailUseCase);
         invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO, pathRelatorios);
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
         checkCertificadoValidatedHashCodeUseCase = new CheckCertificadoValidatedHashCodeUseCase(certificadoDAO);
         regenerateCertificadoUseCase = new RegenerateCertificadoUseCase(certificadoDAO, generateCertificadoUseCase, pathRelatorios);
+        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase, sendCertificateByEmailUseCase);
+        sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
 
     }
 }

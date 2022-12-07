@@ -1,6 +1,5 @@
 package org.example.application.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -44,7 +43,7 @@ public class AdministradorUIController {
         txtPalavraChave.setText(administrador.getPalavraChave());
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) throws IOException {
+    public void saveOrUpdate() throws IOException {
         getEntityToView();
         if (findAdministradorUseCase.findOne(administrador.getLogin()).isEmpty()){
             createAdministradorUseCase.insert(administrador);
@@ -54,7 +53,7 @@ public class AdministradorUIController {
         WindowLoader.setRoot("LoginAdministradorUI");
     }
 
-    public void backToPreviewScenne(ActionEvent actionEvent) throws IOException {
+    public void backToPreviewScenne() throws IOException {
         WindowLoader.setRoot("LoginAdministradorUI");
     }
 
