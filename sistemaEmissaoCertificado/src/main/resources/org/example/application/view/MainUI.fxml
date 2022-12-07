@@ -5,22 +5,23 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.MainUI">
    <children>
-      <TableView fx:id="tableViewEvento" layoutX="23.0" layoutY="33.0" prefHeight="200.0" prefWidth="224.0">
+      <TableView fx:id="tableViewEvento" layoutX="27.0" layoutY="89.0" prefHeight="200.0" prefWidth="224.0">
         <columns>
           <TableColumn fx:id="cNomeEvento" prefWidth="140.0" text="Nome" />
           <TableColumn fx:id="cCargaHoraria" minWidth="0.0" prefWidth="83.0" text="Carga Horária" />
         </columns>
       </TableView>
-      <TableView fx:id="tableViewCertificado" layoutX="265.0" layoutY="33.0" prefHeight="200.0" prefWidth="316.0">
+      <TableView fx:id="tableViewCertificado" layoutX="272.0" layoutY="89.0" prefHeight="200.0" prefWidth="316.0">
         <columns>
-          <TableColumn fx:id="CCodigoCertificado" prefWidth="192.0" text="Código" />
           <TableColumn fx:id="CEventoCertificado" prefWidth="123.0" text="Evento" />
+          <TableColumn fx:id="CCodigoCertificado" prefWidth="192.0" text="Código" />
         </columns>
       </TableView>
-      <Button layoutX="23.0" layoutY="254.0" mnemonicParsing="false" onAction="#showEvento" text="Gerenciar Eventos" />
-      <Button layoutX="266.0" layoutY="254.0" mnemonicParsing="false" onAction="#showCertificado" prefHeight="25.0" prefWidth="151.0" text="Gerenciar Certificados" />
-      <Button layoutX="27.0" layoutY="330.0" mnemonicParsing="false" onAction="#backToLogin" text="Sair" />
-      <Button layoutX="266.0" layoutY="330.0" mnemonicParsing="false" onAction="#generateCerticate" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
-      <Button layoutX="431.0" layoutY="254.0" mnemonicParsing="false" onAction="#showParticipante" prefHeight="25.0" prefWidth="151.0" text="Gerenciar Participantes" />
+      <Button layoutX="27.0" layoutY="302.0" mnemonicParsing="false" onAction="#showEvento" text="Gerenciar Eventos" />
+      <Button layoutX="224.0" layoutY="302.0" mnemonicParsing="false" onAction="#showCertificado" prefHeight="25.0" prefWidth="168.0" text="Gerenciar Certificados" />
+      <Button layoutX="27.0" layoutY="343.0" mnemonicParsing="false" onAction="#backToLogin" text="Sair" />
+       <Button layoutX="430.0" layoutY="343.0" mnemonicParsing="false" onAction="#generateCertificate" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
+       <Button layoutX="430.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendCertificate" prefHeight="25.0" prefWidth="151.0" text="Enviar Certificado" />
+      <Button layoutX="404.0" layoutY="302.0" mnemonicParsing="false" onAction="#showParticipante" prefHeight="25.0" prefWidth="177.0" text="Gerenciar Participantes" />
    </children>
 </AnchorPane>

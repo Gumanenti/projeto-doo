@@ -3,7 +3,6 @@ package org.example.application.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,25 +17,10 @@ import org.example.domain.entities.participante.Participante;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.example.application.main.Main.*;
 
 public class PreGerarCertificadosUIManagement {
-    @FXML
-    private Button btnAnexarCSV;
-    @FXML
-    private Button btnClearTable;
-    @FXML
-    private Button btnBack;
-    @FXML
-    private Button btnRemoveParticipant;
-    @FXML
-    private Button btnEditParticipant;
-    @FXML
-    private Button btnDeleteParticipant;
-    @FXML
-    private Button btnGenerateCertificados;
     @FXML
     private TableView<Participante> tableView;
     @FXML
@@ -47,16 +31,13 @@ public class PreGerarCertificadosUIManagement {
     private TableColumn<Participante, String> cEmail;
     @FXML
     private ComboBox<Evento> cbEvento;
-    private ObservableList<Evento> listViewEvent;
 
     private ObservableList<Participante> tableData;
-    private List<Participante> participanteList;
-    private Evento evento;
 
     @FXML
     private void initialize(){
-        if (participanteList == null)
-            participanteList = new ArrayList<>();
+        if (participanteToGenerateCertificate == null)
+            participanteToGenerateCertificate = new ArrayList<>();
         bindTableViewToItemsList();
         bindColumnsToValueSources();
         loadDataAndShow();
@@ -65,7 +46,7 @@ public class PreGerarCertificadosUIManagement {
 
     private void loadDataAndShow() {
         tableData.clear();
-        tableData.addAll(participanteList);
+        tableData.addAll(participanteToGenerateCertificate);
     }
 
     private void bindColumnsToValueSources() {
@@ -82,15 +63,23 @@ public class PreGerarCertificadosUIManagement {
     public void backToPreView() throws IOException {
         WindowLoader.setRoot("MainUI");
     }
+
     public void removeParticipant() {
         Participante selectedItem = tableView.getSelectionModel().getSelectedItem();
         if(selectedItem != null){
-            participanteList.remove(selectedItem);
+            participanteToGenerateCertificate.remove(selectedItem);
         }
         loadDataAndShow();
     }
+
     public void editParticipant() throws IOException {
         showParticipantInMode(UIMode.UPDATE);
+    }
+
+    public void addParticipant() throws IOException {
+        WindowLoader.setRoot("ParticipanteUI");
+        ParticipanteUIController controller = (ParticipanteUIController) WindowLoader.getController();
+        controller.changeInList();
     }
 
     public void showParticipantInMode(UIMode mode) throws IOException {
@@ -102,12 +91,9 @@ public class PreGerarCertificadosUIManagement {
         }
     }
 
-    public void addParticipant() throws IOException {
-        showParticipantInMode(UIMode.CREATE);
-    }
     public void generateCertificados() throws IOException {
-        evento = cbEvento.getValue();
-        for (Participante p : participanteList){
+        Evento evento = cbEvento.getValue();
+        for (Participante p : participanteToGenerateCertificate){
             if(findParticipanteUseCase.findOne(p.getCpf()).isEmpty()) {
                 createParticipanteUseCase.insert(p);
             }else{
@@ -127,13 +113,13 @@ public class PreGerarCertificadosUIManagement {
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null && !selectedFile.getAbsolutePath().isEmpty()) {
-            participanteList = attachParticipantListUseCase.attachCsvFile(selectedFile.getAbsolutePath());
+            participanteToGenerateCertificate = attachParticipantListUseCase.attachCsvFile(selectedFile.getAbsolutePath());
             tableData.addAll(attachParticipantListUseCase.attachCsvFile(selectedFile.getAbsolutePath()));
         }
     }
 
     private void loadComboBoxEvent(){
-        listViewEvent = FXCollections.observableArrayList(findEventoUseCase.findAll());
+        ObservableList<Evento> listViewEvent = FXCollections.observableArrayList(findEventoUseCase.findAll());
         cbEvento.setItems(listViewEvent);
         cbEvento.setConverter(new StringConverter<Evento>() {
             @Override
@@ -153,6 +139,7 @@ public class PreGerarCertificadosUIManagement {
 
     public void clearTable() {
         tableData.clear();
+        participanteToGenerateCertificate.clear();
     }
 
     public void loadCSVFile() {

@@ -3,6 +3,7 @@ package org.example.application.controller;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -105,7 +106,11 @@ public class MainUI {
 
     }
 
-    public void generateCerticate() throws IOException {
+    public void generateCertificate() throws IOException {
         WindowLoader.setRoot("PreGerarCertificadosUIManagement");
+    }
+
+    public void sendCertificate() {
+
     }
 }

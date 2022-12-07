@@ -1,18 +1,15 @@
 package org.example.application.main;
 
-import org.example.application.repository.inmemory.inMemoryAdministradorDAO;
-import org.example.application.repository.inmemory.inMemoryCertificadoDAO;
-import org.example.application.repository.inmemory.inMemoryEventoDAO;
-import org.example.application.repository.inmemory.inMemoryParticipanteDAO;
-import org.example.application.repository.sqlite.DatabaseBuilder;
-import org.example.application.repository.sqlite.SqliteAdministradorDAO;
+import org.example.application.repository.sqlite.*;
 import org.example.application.view.WindowLoader;
-import org.example.domain.entities.administrador.Administrador;
+import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.administrador.*;
 import org.example.domain.usecases.certificado.*;
 import org.example.domain.usecases.evento.*;
 import org.example.domain.usecases.participante.*;
-import org.example.domain.usecases.participanteInEvento.AgroupDataEventAndParticipantUseCase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Thread{
 
@@ -35,18 +32,18 @@ public class Main extends Thread{
     public static RemoveEventoUseCase removeEventoUseCase;
 
     public static InvalidHashCodeCertificadoUseCase invalidHashCodeCertificadoUseCase;
-    public static AgroupDataEventAndParticipantUseCase agroupDataEventAndParticipantUseCase;
-
     public static CreateParticipanteUseCase createParticipanteUseCase;
     public static UpdateParticipanteUseCase updateParticipanteUseCase;
     public static FindParticipanteUseCase findParticipanteUseCase;
     public static RemoveParticipanteUseCase removeParticipanteUseCase;
     public static AttachParticipantListUseCase attachParticipantListUseCase;
+    public static CheckCertificadoValidatedHashCodeUseCase checkCertificadoValidatedHashCodeUseCase;
+    public static List<Participante> participanteToGenerateCertificate;
+    public static List<Participante> participanteListToSendEmail = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
         configureInjection();
         setupDatabase();
-        createAdministradorUseCase.insert(new Administrador("gustavo", "123", "gustavo"));
         WindowLoader.main(args);
     }
 
@@ -56,7 +53,7 @@ public class Main extends Thread{
     }
 
     private static void configureInjection(){
-        AdministradorDAO administradorDAO = new inMemoryAdministradorDAO();
+        AdministradorDAO administradorDAO = new SqliteAdministradorDAO();
         createAdministradorUseCase = new CreateAdministradorUseCase(administradorDAO);
         updateAdministradorUseCase = new UpdateAdministradorUseCase(administradorDAO);
         findAdministradorUseCase = new FindAdministradorUseCase(administradorDAO);
@@ -64,29 +61,29 @@ public class Main extends Thread{
         requestAdministradorKeyWordUseCase = new RequestAdministradorKeyWordUseCase(administradorDAO);
         loginAdministradorUseCase = new LoginAdministradorUseCase(administradorDAO, requestAdministradorKeyWordUseCase);
 
-        EventoDAO eventoDAO = new inMemoryEventoDAO();
+        EventoDAO eventoDAO = new SqliteEventoDAO();
         createEventoUseCase = new CreateEventoUseCase(eventoDAO);
         updateEventoUseCase = new UpdateEventoUseCase(eventoDAO);
         findEventoUseCase = new FindEventoUseCase(eventoDAO);
         removeEventoUseCase = new RemoveEventoUseCase(eventoDAO);
-        agroupDataEventAndParticipantUseCase = new AgroupDataEventAndParticipantUseCase(eventoDAO);
 
-        ParticipanteDAO participanteDAO = new inMemoryParticipanteDAO();
+        ParticipanteDAO participanteDAO = new SqlitteParticipanteDAO();
         createParticipanteUseCase = new CreateParticipanteUseCase(participanteDAO);
         updateParticipanteUseCase = new UpdateParticipanteUseCase(participanteDAO);
         findParticipanteUseCase = new FindParticipanteUseCase(participanteDAO);
         removeParticipanteUseCase = new RemoveParticipanteUseCase(participanteDAO);
         attachParticipantListUseCase = new AttachParticipantListUseCase();
 
-        CertificadoDAO certificadoDAO = new inMemoryCertificadoDAO();
+        CertificadoDAO certificadoDAO = new SqliteCertificadoDAO();
         String pathRelatorios = "relatorios/";
         generatePDFCertificadoUseCase = new GeneratePDFCertificadoUseCase(certificadoDAO, pathRelatorios);
         generateHashCodeCertificadoUseCase = new  GenerateHashCodeCertificadoUseCase(certificadoDAO);
-        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase);
+        sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
+        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase, sendCertificateByEmailUseCase);
         invalidHashCodeCertificadoUseCase = new InvalidHashCodeCertificadoUseCase(certificadoDAO, pathRelatorios);
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
-        sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
+        checkCertificadoValidatedHashCodeUseCase = new CheckCertificadoValidatedHashCodeUseCase(certificadoDAO);
 
     }
 }
