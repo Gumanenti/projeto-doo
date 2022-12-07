@@ -17,7 +17,7 @@
         <Button fx:id="btnBack" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#backToPreView" text="Voltar" />
         <Button fx:id="btnClearTable" layoutX="73.0" layoutY="353.0" mnemonicParsing="false" onAction="#clearTable" text="Limpar" />
         <Button fx:id="btnAnexarCSV" layoutX="138.0" layoutY="353.0" mnemonicParsing="false" onAction="#loadCSVFile" text="Anexar CSV" />
-        <Button fx:id="btnRemoveParticipant" layoutX="237.0" layoutY="353.0" mnemonicParsing="false" onAction="#removeParticipant" prefHeight="24.0" prefWidth="69.0" text="Rmover" />
+        <Button fx:id="btnRemoveParticipant" layoutX="237.0" layoutY="353.0" mnemonicParsing="false" onAction="#removeParticipant" prefHeight="24.0" prefWidth="69.0" text="Remover" />
         <Button fx:id="btnEditParticipant" layoutX="306.0" layoutY="353.0" mnemonicParsing="false" onAction="#editParticipant" prefHeight="24.0" prefWidth="57.0" text="Editar" />
         <Button fx:id="btnDeleteParticipant" layoutX="363.0" layoutY="353.0" mnemonicParsing="false" onAction="#addParticipant" prefHeight="24.0" prefWidth="84.0" text="Adicionar" />
         <Button fx:id="btnGenerateCertificados" layoutX="449.0" layoutY="353.0" mnemonicParsing="false" onAction="#generateCertificados" prefWidth="137.0" text="Emitir Cetificados" />
