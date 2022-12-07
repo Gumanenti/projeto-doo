@@ -40,7 +40,6 @@ public class EventoUIController {
     @FXML
     private Button btnCancel;
 
-
     private Evento evento;
 
     @FXML
@@ -74,7 +73,6 @@ public class EventoUIController {
         dpData.setValue(LocalDate.parse(evento.getData().format(DateTimeFormatter.ISO_DATE)));
         valueHora.setValue(evento.getData().getHour());
         valueMinutos.setValue(evento.getData().getMinute());
-
     }
 
     public void saveOrUpdate() throws IOException {
@@ -84,9 +82,9 @@ public class EventoUIController {
         if (evento.getId() == null){
             createEventoUseCase.insert(evento);
         } else {
-            updateEventoUseCase.update(evento);
-        }}
-        catch (Exception e){
+                updateEventoUseCase.update(evento);
+            }
+        } catch (Exception e){
             e.printStackTrace();
         }
         WindowLoader.setRoot("EventoManagementUI");
@@ -134,7 +132,10 @@ public class EventoUIController {
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null && !selectedFile.getAbsolutePath().isEmpty()) {
+            if (evento == null)
+                    evento = new Evento();
             evento.setPathTemplateImage(selectedFile.getAbsolutePath());
+
         }
     }
 }
