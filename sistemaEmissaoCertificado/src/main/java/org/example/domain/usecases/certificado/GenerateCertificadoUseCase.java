@@ -2,6 +2,8 @@ package org.example.domain.usecases.certificado;
 
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.certificado.CertificadoStatus;
+import org.example.domain.entities.evento.Evento;
+import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.participante.FindParticipanteUseCase;
 import org.example.domain.usecases.utils.EntityAlreadyExistsException;
 import org.example.domain.usecases.utils.Notification;
@@ -15,17 +17,20 @@ public class GenerateCertificadoUseCase {
     private final FindEventoUseCase findEventoUseCase;
     private final GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
     private final GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
-    private final SendCertificateByEmailUseCase sendCertificateByEmailUseCase;
 
-    public GenerateCertificadoUseCase(CertificadoDAO certificadoDAO, FindParticipanteUseCase findParticipanteUseCase, FindEventoUseCase findEventoUseCase, GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase, GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase, SendCertificateByEmailUseCase sendCertificateByEmailUseCase) {
+    public GenerateCertificadoUseCase(CertificadoDAO certificadoDAO, FindParticipanteUseCase findParticipanteUseCase, FindEventoUseCase findEventoUseCase, GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase, GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase) {
         this.certificadoDAO = certificadoDAO;
         this.findParticipanteUseCase = findParticipanteUseCase;
         this.findEventoUseCase = findEventoUseCase;
         this.generatePDFCertificadoUseCase = generatePDFCertificadoUseCase;
         this.generateHashCodeCertificadoUseCase = generateHashCodeCertificadoUseCase;
-        this.sendCertificateByEmailUseCase = sendCertificateByEmailUseCase;
 
     }
+
+    public  String createCertificado(Evento evento, Participante participante){
+        return createCertificado(evento.getId(), participante.getCpf());
+    }
+
     public String createCertificado(Integer eventoId, String participantCpf){
         Certificado certificado = new Certificado();
 
