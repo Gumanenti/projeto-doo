@@ -41,7 +41,7 @@ public class SqliteEventoDAO implements EventoDAO {
             stmt.setString(2, evento.getData().format(formatter));
             stmt.setInt(3, evento.getCargaHoraria());
             stmt.setString(4, evento.getNomePalestrante());
-            stmt.setString(5, "evento.getPathTemplateImage()");
+            stmt.setString(5, evento.getPathTemplateImage());
             stmt.execute();
         }catch (SQLException e){
             e.printStackTrace();
