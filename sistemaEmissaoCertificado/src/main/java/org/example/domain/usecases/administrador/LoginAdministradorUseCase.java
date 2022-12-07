@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public class LoginAdministradorUseCase {
 
-    private AdministradorDAO administradorDAO;
-    private RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase;
+    private final AdministradorDAO administradorDAO;
+    private final RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase;
 
     public LoginAdministradorUseCase(AdministradorDAO administradorDAO, RequestAdministradorKeyWordUseCase requestAdministradorKeyWordUseCase) {
         this.administradorDAO = administradorDAO;
