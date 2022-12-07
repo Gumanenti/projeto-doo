@@ -13,10 +13,8 @@
             <TableColumn fx:id="cStatus" prefWidth="108.0" text="Status" />
         </columns>
       </TableView>
-      <Button fx:id="btnNew" layoutX="487.0" layoutY="342.0" mnemonicParsing="false" onAction="#newCertificado" text="Novo" />
-      <Button fx:id="btnEdit" layoutX="405.0" layoutY="342.0" mnemonicParsing="false" onAction="#editCertificado" text="Editar" />
-      <Button fx:id="btnDetail" layoutX="310.0" layoutY="342.0" mnemonicParsing="false" onAction="#detailCertificado" text="Detalhar" />
-      <Button fx:id="btnDelete" layoutX="224.0" layoutY="342.0" mnemonicParsing="false" onAction="#invalidCertificado" text="Invalidar" />
+      <Button fx:id="btnDetail" layoutX="480.0" layoutY="342.0" mnemonicParsing="false" onAction="#detailCertificado" prefHeight="25.0" prefWidth="89.0" text="Detalhar" />
+      <Button fx:id="btnDelete" layoutX="364.0" layoutY="342.0" mnemonicParsing="false" onAction="#invalidCertificado" prefHeight="25.0" prefWidth="89.0" text="Invalidar" />
       <Button fx:id="btnBack" layoutX="33.0" layoutY="342.0" mnemonicParsing="false" onAction="#backToPrewview" text="Voltar" />
    </children>
 </AnchorPane>
