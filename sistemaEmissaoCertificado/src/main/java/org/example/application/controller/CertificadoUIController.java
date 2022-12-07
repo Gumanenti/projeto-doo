@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.example.application.view.WindowLoader;
 import org.example.domain.entities.certificado.Certificado;
+import org.example.domain.entities.certificado.CertificadoStatus;
 
 import java.io.IOException;
 
@@ -54,6 +55,11 @@ public class CertificadoUIController {
         txtStatus.setText(certificado.getCertificadoStatus().label);
         txtStatus.setDisable(true);
 
+        if(certificado.getCertificadoStatus() == CertificadoStatus.INVALID){
+            btnReGen.setDisable(true);
+            btnSendEmail.setDisable(true);
+            btnInvalid.setDisable(true);
+        }
     }
 
     public void setCertificado(Certificado selectedItem) {
@@ -68,6 +74,7 @@ public class CertificadoUIController {
     public void invalidCertificate() throws IOException {
         if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
             invalidHashCodeCertificadoUseCase.invalidCertificado(certificado.getCodigo());
+            setCertificado(findCertificadoUseCase.findOne(certificado.getCodigo()).get());
         }
         WindowLoader.setRoot("CertificadoManagementUI");
     }
