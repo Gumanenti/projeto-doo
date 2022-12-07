@@ -8,8 +8,7 @@ import org.example.domain.entities.participante.Participante;
 
 import java.io.IOException;
 
-import static org.example.application.main.Main.createParticipanteUseCase;
-import static org.example.application.main.Main.updateParticipanteUseCase;
+import static org.example.application.main.Main.*;
 
 
 public class ParticipanteUIController {
@@ -25,6 +24,7 @@ public class ParticipanteUIController {
     private Button btnCancel;
 
     private Participante participante;
+    private boolean changeInList = false;
 
     private void getEntityToView(){
         if(participante == null){
@@ -43,10 +43,14 @@ public class ParticipanteUIController {
 
     public void saveOrUpdate() throws IOException {
         getEntityToView();
-        if (participante.getNome() == null){
-            createParticipanteUseCase.insert(participante);
-        } else {
-            updateParticipanteUseCase.update(participante);
+        if (changeInList)
+            participanteToGenerateCertificate.add(participante);
+        else {
+            if (findParticipanteUseCase.findOne(participante.getCpf()).isEmpty()){
+                createParticipanteUseCase.insert(participante);
+            } else {
+                updateParticipanteUseCase.update(participante);
+            }
         }
         WindowLoader.setRoot("PreGerarCertificadosUIManagement");
     }
@@ -56,7 +60,7 @@ public class ParticipanteUIController {
     }
 
     public void setParticipante(Participante selectedItem, UIMode mode) {
-        if (participante == null){
+        if (selectedItem == null){
             throw new IllegalArgumentException("Participante não pode ser nulo");
         } else {
             this.participante = selectedItem;
@@ -78,5 +82,7 @@ public class ParticipanteUIController {
         txtEmail.setDisable(true);
     }
 
-
+    public void changeInList() {
+        changeInList = true;
+    }
 }
