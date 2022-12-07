@@ -51,11 +51,11 @@ public class AdministradorUIController {
         } else {
             updateAdministradorUseCase.update(administrador);
         }
-        WindowLoader.setRoot("AdministradorManagementUI");
+        WindowLoader.setRoot("LoginAdministradorUI");
     }
 
     public void backToPreviewScenne(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("AdministradorManagementUI");
+        WindowLoader.setRoot("LoginAdministradorUI");
     }
 
     public void setAdministrador(Administrador administrador, UIMode mode) {
