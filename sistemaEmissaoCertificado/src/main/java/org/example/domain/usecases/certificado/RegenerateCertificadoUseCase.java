@@ -17,7 +17,7 @@ public class RegenerateCertificadoUseCase {
         this.pathRelatorio = pathRelatorio;
     }
 
-    public void regenerateCertificado(String hashCode){
+    public String regenerateCertificado(String hashCode){
         if (hashCode == null || hashCode.isEmpty())
             throw new RuntimeException("Código hash não pode ser vazio ou nulo!");
 
@@ -30,17 +30,15 @@ public class RegenerateCertificadoUseCase {
         certificadoDAO.update(certificado.get());
         deletePdfFile(hashCode);
 
-        generateCertificadoUseCase.createCertificado(certificado.get().getEvento().getId(), certificado.get().getParticipante().getCpf());
+        return generateCertificadoUseCase.createCertificado(certificado.get().getEvento().getId(), certificado.get().getParticipante().getCpf());
     }
 
-    private void deletePdfFile(String hascode){
-        File file = new File(this.pathRelatorio+ hascode + ".pdf");
-        if (file.delete()){
+    private void deletePdfFile(String hascode) {
+        File file = new File(this.pathRelatorio + hascode + ".pdf");
+        if (file.exists() && file.delete()) {
             System.out.println("Arquivo apagado!");
-        }
-        else{
+        } else {
             System.out.println("Arquivo não foi apagado!");
         }
     }
-
 }
