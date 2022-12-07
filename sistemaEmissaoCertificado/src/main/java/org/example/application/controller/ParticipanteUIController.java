@@ -39,6 +39,8 @@ public class ParticipanteUIController {
         txtNome.setText(participante.getNome());
         txtEmail.setText(participante.getEmail());
         txtCPF.setText(participante.getCpf());
+        if (!changeInList)
+            txtCPF.setDisable(true);
     }
 
     public void saveOrUpdate() throws IOException {
