@@ -24,6 +24,6 @@ public class RequestAdministradorKeyWordUseCase {
             throw new EntityNotFoundException("Não foi possivel fazer o login. Administrador não encontrado");
         }
 
-        throw new EntityNotFoundException("Não foi possivel fazer login, pois senha é inválida! Palavra passe é: " + administrador.get().getPalavraChave());
+        throw new EntityNotFoundException("Não foi possivel fazer login, pois senha é inválida! Palavra chave é: " + administrador.get().getPalavraChave());
     };
 }
