@@ -1,19 +1,16 @@
 package org.example.application.controller;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.example.application.view.WindowLoader;
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.evento.Evento;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,7 +76,7 @@ public class MainUI {
 
     private void bindColumnToValueSourcesCertificado() {
         CCodigoCertificado.setCellValueFactory(new PropertyValueFactory<>("codigo"));
-        CEventoCertificado.setCellValueFactory(new PropertyValueFactory<>("evento"));
+        CEventoCertificado.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getEvento().getNome()));
     }
 
     private void loadDataAndShowCertificado() {
@@ -88,28 +85,27 @@ public class MainUI {
         tableDataCertificado.addAll(certificados);
     }
 
-    public void showAdminstrator(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("AdministradorManagementUI");
-    }
-
-    public void showCertificado(ActionEvent actionEvent) throws IOException {
+    public void showCertificado() throws IOException {
         WindowLoader.setRoot("CertificadoManagementUI");
 
     }
 
-    public void showEvento(ActionEvent actionEvent) throws IOException {
+    public void showEvento() throws IOException {
         WindowLoader.setRoot("EventoManagementUI");
 
     }
 
-    public void showParticipante(ActionEvent actionEvent) throws IOException {
+    public void showParticipante() throws IOException {
         WindowLoader.setRoot("ParticipanteManagementUI");
 
     }
 
-    public void backToLogin(ActionEvent actionEvent) throws IOException {
+    public void backToLogin() throws IOException {
         WindowLoader.setRoot("LoginAdministradorUI");
 
     }
 
+    public void generateCerticate() throws IOException {
+        WindowLoader.setRoot("PreGerarCertificadosUIManagement");
+    }
 }

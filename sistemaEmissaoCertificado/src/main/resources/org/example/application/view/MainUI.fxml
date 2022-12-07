@@ -20,7 +20,7 @@
       <Button layoutX="23.0" layoutY="254.0" mnemonicParsing="false" onAction="#showEvento" text="Gerenciar Eventos" />
       <Button layoutX="266.0" layoutY="254.0" mnemonicParsing="false" onAction="#showCertificado" prefHeight="25.0" prefWidth="151.0" text="Gerenciar Certificados" />
       <Button layoutX="27.0" layoutY="330.0" mnemonicParsing="false" onAction="#backToLogin" text="Sair" />
-      <Button layoutX="266.0" layoutY="330.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
+      <Button layoutX="266.0" layoutY="330.0" mnemonicParsing="false" onAction="#generateCerticate" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
       <Button layoutX="431.0" layoutY="254.0" mnemonicParsing="false" onAction="#showParticipante" prefHeight="25.0" prefWidth="151.0" text="Gerenciar Participantes" />
    </children>
 </AnchorPane>
