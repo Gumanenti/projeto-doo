@@ -1,7 +1,8 @@
 package org.example.domain.usecases.certificado;
 
 import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.usecases.utils.GenerateHashCode;
+
+import java.util.UUID;
 
 public class GenerateHashCodeCertificadoUseCase {
     private final CertificadoDAO certificadoDAO;
@@ -10,12 +11,9 @@ public class GenerateHashCodeCertificadoUseCase {
         this.certificadoDAO = certificadoDAO;
     }
 
-    public void generatorHashcode(Certificado c) throws Exception {
-        GenerateHashCode generateHashCode = new GenerateHashCode();
-        String toHashCode = c.getCodigo() + c.getParticipante().getCpf() + c.getEvento().getId();
+    public void generatorHashcode(Certificado c) {
+        UUID hashCode = UUID.randomUUID();
 
-        String hashCode = generateHashCode.genHashCode(toHashCode);
         c.setCodigo(hashCode.toString());
-        certificadoDAO.update(c);
     }
 }
