@@ -76,7 +76,7 @@ public class GeneratePDFCertificadoUseCase {
                     }
                     else{
                         name = name.substring(0, 14);
-                        certificado.get().setCertificadoStatus(new CertificadoStatus(false));
+                        certificado.get().setCertificadoStatus(CertificadoStatus.INVALID);
                     }
                 }
             } else{

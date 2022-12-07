@@ -26,7 +26,7 @@ public class RegenerateCertificadoUseCase {
         certificado = certificadoDAO.findOne(hashCode);
         if (certificado.isEmpty())
             throw new RuntimeException("Certificado não encontrado");
-        certificado.get().setCertificadoStatus(new CertificadoStatus(false));
+        certificado.get().setCertificadoStatus(CertificadoStatus.INVALID);
         certificadoDAO.update(certificado.get());
         deletePdfFile(hashCode);
 
