@@ -1,21 +1,20 @@
 package org.example.application.controller;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.application.view.WindowLoader;
-import org.example.domain.entities.administrador.Administrador;
 import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.entities.participante.Participante;
 
 import java.io.IOException;
 import java.util.List;
 
-import static org.example.application.main.Main.*;
+import static org.example.application.main.Main.certificateListToSendEmail;
+import static org.example.application.main.Main.sendCertificateByEmailUseCase;
 
 public class EnviarCertificadoUI {
 
@@ -43,7 +42,8 @@ public class EnviarCertificadoUI {
     private void bindColumnsToValueSources() {
         cCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         cEvento.setCellValueFactory(new PropertyValueFactory<>("evento"));
-        cParticipante.setCellValueFactory(new PropertyValueFactory<>("participante"));
+        cEvento.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getEvento().getNome()));
+        cParticipante.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getParticipante().getNome()));
     }
 
     private void loadDataAndShow() {
@@ -76,8 +76,8 @@ public class EnviarCertificadoUI {
     public void sendAllCertificado() throws IOException {
         for (Certificado c : certificateListToSendEmail){
             sendCertificateByEmailUseCase.sendMail(c.getCodigo());
-            certificateListToSendEmail.remove(c);
         }
+        certificateListToSendEmail.clear();
         WindowLoader.setRoot("MainUI");
     }
 }
