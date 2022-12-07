@@ -5,21 +5,29 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.application.view.WindowLoader;
 import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.evento.Evento;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.example.application.main.Main.findCertificadoUseCase;
 import static org.example.application.main.Main.findEventoUseCase;
 
 public class MainUI {
 
+    @FXML
+    private TextField txtBuscarCertificado;
+    @FXML
+    private Button btnBuscarcertificado;
     @FXML
     private TableView<Evento> tableViewEvento;
     @FXML
@@ -86,6 +94,18 @@ public class MainUI {
         tableDataCertificado.addAll(certificados);
     }
 
+    public void showCertificadoInMode() throws IOException {
+        String hcode = txtBuscarCertificado.getText();
+        if(hcode != null){
+            Optional<Certificado> certificado = findCertificadoUseCase.findOne(hcode);
+            if (certificado.isPresent()){
+                WindowLoader.setRoot("CertificadoUI");
+                CertificadoUIController controller = (CertificadoUIController) WindowLoader.getController();
+                controller.setCertificado(certificado.get());
+            }
+        }
+    }
+
     public void showCertificado() throws IOException {
         WindowLoader.setRoot("CertificadoManagementUI");
 
@@ -110,7 +130,7 @@ public class MainUI {
         WindowLoader.setRoot("PreGerarCertificadosUIManagement");
     }
 
-    public void sendCertificate() {
-
+    public void sendCertificate() throws IOException {
+        WindowLoader.setRoot("EnviarCertificadoUI");
     }
 }

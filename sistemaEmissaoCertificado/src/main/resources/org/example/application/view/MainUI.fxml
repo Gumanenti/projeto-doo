@@ -23,5 +23,7 @@
        <Button layoutX="417.0" layoutY="343.0" mnemonicParsing="false" onAction="#generateCertificate" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
        <Button layoutX="233.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendCertificate" prefHeight="25.0" prefWidth="151.0" text="Enviar Certificado" />
       <Button layoutX="404.0" layoutY="302.0" mnemonicParsing="false" onAction="#showParticipante" prefHeight="25.0" prefWidth="177.0" text="Gerenciar Participantes" />
+      <Button fx:id="btnBuscarcertificado" layoutX="467.0" layoutY="46.0" mnemonicParsing="false" onAction="#showCertificadoInMode" text="Buscar" />
+      <TextField fx:id="txtBuscarCertificado" layoutX="272.0" layoutY="46.0" prefHeight="25.0" prefWidth="177.0" />
    </children>
 </AnchorPane>
