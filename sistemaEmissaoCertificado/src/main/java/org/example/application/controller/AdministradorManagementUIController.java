@@ -61,19 +61,19 @@ public class AdministradorManagementUIController {
             controller.setAdministrador(selectedItem, mode);
         }
     }
-    public void newAdministrador(ActionEvent actionEvent) throws IOException {
+    public void newAdministrador() throws IOException {
         WindowLoader.setRoot("AdminitradorUI");
     }
 
-    public void editAdministrador(ActionEvent actionEvent) throws IOException {
+    public void editAdministrador() throws IOException {
         showAdministradorInMode(UIMode.UPDATE);
     }
 
-    public void datialAdministrador(ActionEvent actionEvent) throws IOException {
+    public void datialAdministrador() throws IOException {
         showAdministradorInMode(UIMode.VIEW);
     }
 
-    public void deleteAdministrador(ActionEvent actionEvent) {
+    public void deleteAdministrador() {
         Administrador selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null){
             removeAdministradorUseCase.remove(selectedItem);
@@ -81,7 +81,7 @@ public class AdministradorManagementUIController {
         }
     }
 
-    public void backToPrewview(ActionEvent actionEvent) throws IOException {
+    public void backToPrewview() throws IOException {
         WindowLoader.setRoot("MainUI");
     }
 }

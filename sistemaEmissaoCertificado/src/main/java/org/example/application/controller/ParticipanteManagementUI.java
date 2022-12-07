@@ -30,7 +30,7 @@ public class ParticipanteManagementUI {
     private ObservableList<Participante> tableData;
 
     @FXML
-    private void inicitialize(){
+    private void initialize(){
         bindTableViewToItensList();
         bindColumnToValueSources();
         loadDataAndShow();
@@ -61,19 +61,19 @@ public class ParticipanteManagementUI {
             controller.setParticipante(selectedItem, mode);
         }
     }
-    public void newParticipante(ActionEvent actionEvent) throws IOException {
+    public void newParticipante() throws IOException {
         WindowLoader.setRoot("ParticipanteUI");
     }
 
-    public void editParticipante(ActionEvent actionEvent) throws IOException {
+    public void editParticipante() throws IOException {
         showParticipanteInMode(UIMode.UPDATE);
     }
 
-    public void detailParticipante(ActionEvent actionEvent) throws IOException {
+    public void detailParticipante() throws IOException {
         showParticipanteInMode(UIMode.VIEW);
     }
 
-    public void deleteParticipante(ActionEvent actionEvent) {
+    public void deleteParticipante() {
         Participante selectedItem = tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null){
             removeParticipanteUseCase.remove(selectedItem);
@@ -81,7 +81,7 @@ public class ParticipanteManagementUI {
         }
     }
 
-    public void backToPreviewScenne(ActionEvent actionEvent) throws IOException {
+    public void backToPreviewScenne() throws IOException {
         WindowLoader.setRoot("MainUI");
     }
 }

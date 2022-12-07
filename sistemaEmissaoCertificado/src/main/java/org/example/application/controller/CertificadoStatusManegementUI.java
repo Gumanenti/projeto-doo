@@ -3,18 +3,18 @@ package org.example.application.controller;
 import javafx.event.ActionEvent;
 
 public class CertificadoStatusManegementUI {
-    public void newCertificadoStatus(ActionEvent actionEvent) {
+    public void newCertificadoStatus() {
     }
 
-    public void editCertificadoStatus(ActionEvent actionEvent) {
+    public void editCertificadoStatus() {
     }
 
-    public void detailCertificadoStatus(ActionEvent actionEvent) {
+    public void detailCertificadoStatus() {
     }
 
-    public void deleteCertificadoStatus(ActionEvent actionEvent) {
+    public void deleteCertificadoStatus() {
     }
 
-    public void backToPrewview(ActionEvent actionEvent) {
+    public void backToPrewview() {
     }
 }

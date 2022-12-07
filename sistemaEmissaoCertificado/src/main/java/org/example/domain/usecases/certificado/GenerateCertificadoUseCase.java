@@ -10,21 +10,23 @@ import org.example.domain.usecases.evento.FindEventoUseCase;
 
 public class GenerateCertificadoUseCase {
 
-    private CertificadoDAO certificadoDAO;
-    private FindParticipanteUseCase findParticipanteUseCase;
-    private FindEventoUseCase findEventoUseCase;
-    private GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
-    private GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
+    private final CertificadoDAO certificadoDAO;
+    private final FindParticipanteUseCase findParticipanteUseCase;
+    private final FindEventoUseCase findEventoUseCase;
+    private final GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
+    private final GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
+    private final SendCertificateByEmailUseCase sendCertificateByEmailUseCase;
 
-    public GenerateCertificadoUseCase(CertificadoDAO certificadoDAO, FindParticipanteUseCase findParticipanteUseCase, FindEventoUseCase findEventoUseCase, GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase, GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase) {
+    public GenerateCertificadoUseCase(CertificadoDAO certificadoDAO, FindParticipanteUseCase findParticipanteUseCase, FindEventoUseCase findEventoUseCase, GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase, GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase, SendCertificateByEmailUseCase sendCertificateByEmailUseCase) {
         this.certificadoDAO = certificadoDAO;
         this.findParticipanteUseCase = findParticipanteUseCase;
         this.findEventoUseCase = findEventoUseCase;
         this.generatePDFCertificadoUseCase = generatePDFCertificadoUseCase;
         this.generateHashCodeCertificadoUseCase = generateHashCodeCertificadoUseCase;
+        this.sendCertificateByEmailUseCase = sendCertificateByEmailUseCase;
 
     }
-    public String createCertificado(Integer eventoId, String participantCpf){
+    public void createCertificado(Integer eventoId, String participantCpf){
         Certificado certificado = new Certificado();
 
         if (eventoId == null || (participantCpf == null || participantCpf.isEmpty()))
@@ -42,17 +44,16 @@ public class GenerateCertificadoUseCase {
                 throw new IllegalArgumentException(notification.errorMessage());
 
             certificado.setCertificadoStatus(new CertificadoStatus(true));
-
             insert(certificado);
-            return certificado.getCodigo();
+            generatePDFCertificadoUseCase.generatePDF(certificado.getCodigo());
+            sendCertificateByEmailUseCase.sendMail(certificado.getCodigo());
 
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
-        return null;
     }
 
-    private String insert(Certificado certificado){
+    private void insert(Certificado certificado){
         Validator<Certificado> validator = new CertificadoInputRequestValidator();
         Notification notification = validator.validate(certificado);
 
@@ -65,6 +66,6 @@ public class GenerateCertificadoUseCase {
             throw new EntityAlreadyExistsException("Esse código já está em uso.");
         }
 
-        return certificadoDAO.create(certificado);
+        certificadoDAO.create(certificado);
     }
 }
