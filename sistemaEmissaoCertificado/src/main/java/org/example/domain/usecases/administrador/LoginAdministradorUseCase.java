@@ -15,9 +15,13 @@ public class LoginAdministradorUseCase {
         this.requestAdministradorKeyWordUseCase = requestAdministradorKeyWordUseCase;
     }
 
-    public boolean autentificarAdministrador(String login, String senha){
+    public void autentificarAdministrador(Administrador administrador){
+        autentificarAdministrador(administrador.getLogin(), administrador.getSenha());
+    }
 
-        if (login == null ||  login.isEmpty() || senha == null || login.isEmpty()) {
+    public void autentificarAdministrador(String login, String senha){
+
+        if (login == null || login.isEmpty() || senha == null) {
             throw new IllegalArgumentException("Login e/ou senha não podem ser vazios ou nulos.");
         }
         Optional<Administrador> admin;
@@ -31,6 +35,5 @@ public class LoginAdministradorUseCase {
             requestAdministradorKeyWordUseCase.getKeyWord(login);
 
         System.out.println("Login e senha corretos. Entrando no sistema...");
-        return true;
     }
 }
