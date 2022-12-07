@@ -64,7 +64,7 @@ public class DatabaseBuilder {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append("CREATE TABLE Certificados (\n")
+        builder.append("CREATE TABLE Certificado (\n")
                 .append("hashCode TEXT PRIMARY KEY, \n")
                 .append("eventId INTEGER NOT NULL, \n")
                 .append("participantCpf TEXT NOT NULL, \n")
