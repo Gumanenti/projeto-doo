@@ -51,8 +51,8 @@ public class DatabaseBuilder {
         builder.append("CREATE TABLE Evento (\n")
                 .append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n")
                 .append("name TEXT NOT NULL UNIQUE, \n")
-                .append("date DATETIME NOT NULL,\n")
-                .append("hour INTEGER NOT NULL, \n") // Não sei um nome correto para cargaHoraria.
+                .append("dateTime TEXT NOT NULL,\n")
+                .append("workTime INTEGER NOT NULL,\n")
                 .append("speaker TEXT NOT NULL, \n")
                 .append("urlImage TEXT NOT NULL \n")
                 .append("); \n");

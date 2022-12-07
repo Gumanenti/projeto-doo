@@ -50,20 +50,20 @@ public class SqliteAdministradorDAO implements AdministradorDAO {
     @Override
     public List<Administrador> findAll() {
         String sql = "SELECT * FROM Administrador";
-        List<Administrador> administradores = new ArrayList<>();
+        List<Administrador> administradorList = new ArrayList<>();
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 Administrador administrador = resultSetToEntity(rs);
-                administradores.add(administrador);
+                administradorList.add(administrador);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
-        return administradores;
+        return administradorList;
     }
 
     @Override
