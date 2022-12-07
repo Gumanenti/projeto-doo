@@ -1,6 +1,5 @@
 package org.example.application.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,7 +20,6 @@ public class LoginAdministradorUIController {
     @FXML
     private Button btnLogar;
     private Administrador administrador;
-    private Integer numTentativas=0;
 
     private void getEntityToView(){
         if(administrador == null){
@@ -31,23 +29,17 @@ public class LoginAdministradorUIController {
         administrador.setSenha(txtSenha.getText());
     }
 
-    public void loginAdministrador(ActionEvent actionEvent) throws IOException{
+    public void loginAdministrador() {
         getEntityToView();
         try{
             loginAdministradorUseCase.autentificarAdministrador(administrador);
             WindowLoader.setRoot("MainUI");
         }catch (Exception e){
             System.err.println(e);
-            numTentativas ++;
-            if (numTentativas == 3){
-                numTentativas = 0;
-                //tela com a palavra-chave
-            }
-
         }
     }
 
-    public void cadastrarAdministrador(ActionEvent actionEvent) throws IOException{
+    public void cadastrarAdministrador() throws IOException{
         WindowLoader.setRoot("AdminitradorUI");
     }
 
