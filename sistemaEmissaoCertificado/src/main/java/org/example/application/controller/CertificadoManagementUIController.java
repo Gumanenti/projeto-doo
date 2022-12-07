@@ -78,8 +78,11 @@ public class CertificadoManagementUIController {
         showCertificadoInMode(UIMode.VIEW);
     }
 
-    public void deleteCertificado(ActionEvent actionEvent) {
-
+    public void invalidCertificado(ActionEvent actionEvent) {
+        Certificado selectedItem = tableView.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            invalidHashCodeCertificadoUseCase.invalidCertificado(selectedItem.getCodigo());
+        }
     }
 
     public void backToPrewview(ActionEvent actionEvent) throws IOException {
