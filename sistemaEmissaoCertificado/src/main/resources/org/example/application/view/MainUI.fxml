@@ -5,26 +5,22 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.application.controller.MainUI">
    <children>
-       <MenuBar layoutX="425.0" layoutY="200.0">
-           <Menu text="Opções">
-               <MenuItem onAction="#showAdminstrator" text="Adminstrador" />
-               <MenuItem onAction="#showCertificado" text="Certificado" />
-               <MenuItem onAction="#showEvento" text="Evento" />
-               <MenuItem onAction="#showParticipante" text="Participante" />
-           </Menu>
-       </MenuBar>
-      <Label layoutX="50.0" layoutY="31.0" text="Código Administrador" />
-      <TextField layoutX="195.0" layoutY="27.0" prefHeight="25.0" prefWidth="344.0" />
-      <TableView layoutX="50.0" layoutY="63.0" prefHeight="139.0" prefWidth="200.0">
+      <TableView fx:id="tableViewEvento" layoutX="23.0" layoutY="33.0" prefHeight="200.0" prefWidth="224.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn fx:id="cNomeEvento" prefWidth="140.0" text="Nome" />
+          <TableColumn fx:id="cCargaHoraria" minWidth="0.0" prefWidth="83.0" text="Carga Horária" />
         </columns>
       </TableView>
-      <TableView layoutX="50.0" layoutY="217.0" prefHeight="139.0" prefWidth="200.0">
+      <TableView fx:id="tableViewCertificado" layoutX="265.0" layoutY="33.0" prefHeight="200.0" prefWidth="316.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="CCodigoCertificado" prefWidth="192.0" text="Código" />
+          <TableColumn fx:id="CEventoCertificado" prefWidth="123.0" text="Evento" />
         </columns>
       </TableView>
+      <Button layoutX="23.0" layoutY="254.0" mnemonicParsing="false" onAction="#showEvento" text="Gerenciar Eventos" />
+      <Button layoutX="266.0" layoutY="254.0" mnemonicParsing="false" onAction="#showCertificado" prefHeight="25.0" prefWidth="151.0" text="Gerenciar Certificados" />
+      <Button layoutX="27.0" layoutY="330.0" mnemonicParsing="false" onAction="#backToLogin" text="Sair" />
+      <Button layoutX="220.0" layoutY="330.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Gerar Certificado" />
+      <Button layoutX="431.0" layoutY="254.0" mnemonicParsing="false" onAction="#showParticipante" prefHeight="25.0" prefWidth="151.0" text="Gerenciar Participantes" />
    </children>
 </AnchorPane>
