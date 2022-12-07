@@ -84,8 +84,8 @@ public class Main extends Thread{
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
         checkCertificadoValidatedHashCodeUseCase = new CheckCertificadoValidatedHashCodeUseCase(certificadoDAO);
+        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase);
         regenerateCertificadoUseCase = new RegenerateCertificadoUseCase(certificadoDAO, generateCertificadoUseCase, pathRelatorios);
-        generateCertificadoUseCase = new GenerateCertificadoUseCase(certificadoDAO, findParticipanteUseCase, findEventoUseCase, generatePDFCertificadoUseCase, generateHashCodeCertificadoUseCase, sendCertificateByEmailUseCase);
         sendCertificateByEmailUseCase = new SendCertificateByEmailUseCase(findCertificadoUseCase);
 
     }
