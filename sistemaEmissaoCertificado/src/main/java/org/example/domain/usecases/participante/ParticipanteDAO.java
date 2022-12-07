@@ -6,5 +6,4 @@ import org.example.domain.usecases.utils.DAO;
 import java.util.Optional;
 
 public interface ParticipanteDAO extends DAO<Participante, String> {
-    Optional<Participante> findByCPF(String cpf);
 }

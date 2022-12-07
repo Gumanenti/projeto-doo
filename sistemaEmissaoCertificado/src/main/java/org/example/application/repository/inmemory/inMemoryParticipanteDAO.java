@@ -8,20 +8,9 @@ import java.util.*;
 public class inMemoryParticipanteDAO implements ParticipanteDAO {
 
     private static final Map<String, Participante> db = new LinkedHashMap<>();
-    private static int idCounter; //precisa criar o id dentro da classe
-
-    @Override
-    public Optional<Participante> findByCPF(String login) {
-        return db.values().stream()
-                .filter(participante -> participante.getCpf().equals(login))
-                .findAny();
-    }
 
     @Override
     public String create(Participante participante) {
-        //idCounter++;
-        //participante.setCpf(String.valueOf(idCounter));
-        //db.put(String.valueOf(idCounter), participante);
         db.put(participante.getCpf(), participante);
         return participante.getCpf();
     }

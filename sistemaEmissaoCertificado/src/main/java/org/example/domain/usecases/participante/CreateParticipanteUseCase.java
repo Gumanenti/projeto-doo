@@ -22,7 +22,7 @@ public class CreateParticipanteUseCase {
         }
 
         String cpf = participante.getCpf(); //Ctrl + Alt + V
-        if(participanteDAO.findByCPF(cpf).isPresent()){
+        if(participanteDAO.findOne(cpf).isPresent()){
             throw new EntityAlreadyExistsException("CPF já está em uso.");
         }
 
