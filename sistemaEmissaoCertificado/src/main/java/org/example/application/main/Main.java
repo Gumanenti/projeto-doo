@@ -2,6 +2,7 @@ package org.example.application.main;
 
 import org.example.application.repository.sqlite.*;
 import org.example.application.view.WindowLoader;
+import org.example.domain.entities.certificado.Certificado;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.administrador.*;
 import org.example.domain.usecases.certificado.*;
@@ -24,6 +25,7 @@ public class Main extends Thread{
     public static FindCertificadoUseCase findCertificadoUseCase;
     public static GeneratePDFCertificadoUseCase generatePDFCertificadoUseCase;
     public static GenerateHashCodeCertificadoUseCase generateHashCodeCertificadoUseCase;
+    public static RegenerateCertificadoUseCase regenerateCertificadoUseCase;
     public static SendCertificateByEmailUseCase sendCertificateByEmailUseCase;
 
     public static CreateEventoUseCase createEventoUseCase;
@@ -39,7 +41,7 @@ public class Main extends Thread{
     public static AttachParticipantListUseCase attachParticipantListUseCase;
     public static CheckCertificadoValidatedHashCodeUseCase checkCertificadoValidatedHashCodeUseCase;
     public static List<Participante> participanteToGenerateCertificate;
-    public static List<Participante> participanteListToSendEmail = new ArrayList<>();
+    public static List<Certificado> certificateListToSendEmail = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
         configureInjection();
@@ -84,6 +86,7 @@ public class Main extends Thread{
         updateCertificadoUseCase = new UpdateCertificadoUseCase(certificadoDAO);
         findCertificadoUseCase = new FindCertificadoUseCase(certificadoDAO);
         checkCertificadoValidatedHashCodeUseCase = new CheckCertificadoValidatedHashCodeUseCase(certificadoDAO);
+        regenerateCertificadoUseCase = new RegenerateCertificadoUseCase(certificadoDAO, generateCertificadoUseCase, pathRelatorios);
 
     }
 }
