@@ -19,7 +19,7 @@ import static org.example.application.main.Main.findParticipanteUseCase;
 public class SqliteCertificadoDAO implements CertificadoDAO {
     @Override
     public String create(Certificado certificado) {
-        String sql = "INSERT INTO Certificado (hashCode, eventId, participantCpf, status) VALUES (?,?,?)";
+        String sql = "INSERT INTO Certificado (hashCode, eventId, participantCpf, status) VALUES (?,?,?,?)";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             stmt.setString(1, certificado.getCodigo());
@@ -120,7 +120,7 @@ public class SqliteCertificadoDAO implements CertificadoDAO {
     }
 
     private Certificado resultSetToEntity(ResultSet rs) throws SQLException {
-        Evento evento = findEventoUseCase.findOne(rs.getInt("id")).get();
+        Evento evento = findEventoUseCase.findOne(rs.getInt("eventId")).get();
         Participante participante = findParticipanteUseCase.findOne(rs.getString("participantCpf")).get();
 
         return new Certificado(

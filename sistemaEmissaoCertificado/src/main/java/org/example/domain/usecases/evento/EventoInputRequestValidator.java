@@ -21,9 +21,9 @@ public class EventoInputRequestValidator extends Validator<Evento> {
             notification.addError("Palestrante não existe ou está vazio.");
         }
 
-        //if(nullOrEmpty(evento.getPathTemplateImage())){
-        //    notification.addError("Caminho do template não existe ou esstá vazio.");
-        //}
+        if(nullOrEmpty(evento.getPathTemplateImage())){
+            notification.addError("Caminho do template não existe ou esstá vazio.");
+        }
 
         return notification;
     }

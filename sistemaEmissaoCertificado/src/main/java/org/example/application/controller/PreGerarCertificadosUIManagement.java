@@ -87,23 +87,27 @@ public class PreGerarCertificadosUIManagement {
         if(selectedItem != null){
             WindowLoader.setRoot("ParticipanteUI");
             ParticipanteUIController controller = (ParticipanteUIController) WindowLoader.getController();
+            controller.changeInList();
             controller.setParticipante(selectedItem, mode);
         }
     }
 
     public void generateCertificados() throws IOException {
         Evento evento = cbEvento.getValue();
-        for (Participante p : participanteToGenerateCertificate){
-            if(findParticipanteUseCase.findOne(p.getCpf()).isEmpty()) {
-                createParticipanteUseCase.insert(p);
-            }else{
-                updateParticipanteUseCase.update(p);
+        if (evento != null){
+            for (Participante p : participanteToGenerateCertificate){
+                if(findParticipanteUseCase.findOne(p.getCpf()).isEmpty()) {
+                    createParticipanteUseCase.insert(p);
+                }else{
+                    updateParticipanteUseCase.update(p);
+                }
+                String code = generateCertificadoUseCase.createCertificado(evento.getId(), p.getCpf());
+                certificateListToSendEmail.add(findCertificadoUseCase.findOne(code).get());
             }
-            generateCertificadoUseCase.createCertificado(evento.getId(), p.getCpf());
+            participanteToGenerateCertificate.clear();
+            WindowLoader.setRoot("MainUI");
         }
-        WindowLoader.setRoot("MainUI");
     }
-
     public void anexarCSV() {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();

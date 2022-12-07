@@ -1,120 +1,88 @@
 package org.example.application.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
 import org.example.application.view.WindowLoader;
 import org.example.domain.entities.certificado.Certificado;
-import org.example.domain.entities.certificado.CertificadoStatus;
-import org.example.domain.entities.evento.Evento;
-import org.example.domain.entities.participante.Participante;
 
 import java.io.IOException;
 
-import static org.example.application.main.Main.findEventoUseCase;
-import static org.example.application.main.Main.updateCertificadoUseCase;
+import static org.example.application.main.Main.*;
 
 
 public class CertificadoUIController {
-    public ComboBox cbEvento;
     @FXML
-    private TextField txtEvento;
+    private TextField txtStatus;
     @FXML
-    private TextField txtParticipante;
+    private TextField txtNomeParticipante;
     @FXML
-    private TextField txtCodigo;
-
+    private TextField txtNomeEvento;
     @FXML
-    private TextField txtCertificadoStatus;
+    private TextField txtHashCode;
     @FXML
-    private Button btnConfirm;
+    private Button btnInvalid;
+    @FXML
+    private Button btnReGen;
+    @FXML
+    private Button btnSendEmail;
+    @FXML
+    private Button btnClose;
     @FXML
     private Button btnCancel;
-
     private Certificado certificado;
-    private ObservableList<Evento> listViewEvent;
 
     @FXML
     private void initialize(){
-        loadComboEvent();
     }
 
-    private void getEntityToView(){
-        if(certificado == null){
-            certificado = new Certificado();
-        }
-        certificado.setEvento((Evento) txtEvento.getUserData());
-        certificado.setParticipante((Participante) txtParticipante.getUserData());
-        certificado.setCodigo(txtCodigo.getText());
-        certificado.setCertificadoStatus((CertificadoStatus) txtCertificadoStatus.getUserData());
+
+    public void backToPreviewScene() throws IOException {
+        WindowLoader.setRoot("CertificadoManagementUI");
     }
 
     private void setEntityIntoView(){
-        txtEvento.setText(String.valueOf(certificado.getEvento()));
-        txtParticipante.setText(String.valueOf(certificado.getParticipante()));
-        txtCodigo.setText(certificado.getCodigo());
-        txtCertificadoStatus.setText(String.valueOf(certificado.getCertificadoStatus()));
-    }
-    public void backToPreviewScene(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("CertificadoManagementUI");
+        txtHashCode.setText(certificado.getCodigo());
+        txtHashCode.setDisable(true);
+
+        txtNomeEvento.setText(certificado.getEvento().getNome());
+        txtNomeEvento.setDisable(true);
+
+        txtNomeParticipante.setText(certificado.getParticipante().getNome());
+        txtNomeParticipante.setDisable(true);
+
+        txtStatus.setText(certificado.getCertificadoStatus().label);
+        txtStatus.setDisable(true);
+
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) throws IOException {
-        getEntityToView();
-        if (certificado.getCodigo() == null){
-            //generateCertificadoUseCase.insert(certificado);
-        } else {
-            updateCertificadoUseCase.update(certificado);
-        }
-        WindowLoader.setRoot("CertificadoManagementUI");
-    }
-
-    public void setCertificado(Certificado selectedItem, UIMode mode) {
-        if (certificado == null){
+    public void setCertificado(Certificado selectedItem) {
+        if (selectedItem == null)
             throw new IllegalArgumentException("Certificado não pode ser nulo");
-        } else {
-            this.certificado = certificado;
-            setEntityIntoView();
+
+        certificado = selectedItem;
+        setEntityIntoView();
+
+    }
+
+    public void invalidCertificate() throws IOException {
+        if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
+            invalidHashCodeCertificadoUseCase.invalidCertificado(certificado.getCodigo());
         }
-        if (mode == UIMode.VIEW){
-            configureViewMode();
+        WindowLoader.setRoot("CertificadoManagementUIController");
+    }
+
+    public void reGenCertificate() throws IOException {
+        if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
+            regenerateCertificadoUseCase.regenerateCertificado(certificado.getCodigo());
         }
+        WindowLoader.setRoot("CertificadoManagementUIController");
     }
 
-    private void configureViewMode() {
-        btnCancel.setLayoutX(btnConfirm.getLayoutX());
-        btnCancel.setLayoutX(btnConfirm.getLayoutY());
-        btnCancel.setText("Fechar");
-
-        btnConfirm.setVisible(false);
-        txtEvento.setDisable(true);
-        txtParticipante.setDisable(true);
-        txtCodigo.setDisable(true);
-        txtCertificadoStatus.setDisable(true);
+    public void sendToEmail() throws IOException {
+        if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
+            sendCertificateByEmailUseCase.sendMail(certificado.getCodigo());
+        }
+        WindowLoader.setRoot("CertificadoManagementUIController");
     }
-
-    private void loadComboEvent(){
-        listViewEvent = FXCollections.observableArrayList(findEventoUseCase.findAll());
-        cbEvento.setItems(listViewEvent);
-        cbEvento.setConverter(new StringConverter<Evento>() {
-            @Override
-            public String toString(Evento object) {
-                if (object != null){
-                    return object.getNome();
-                }
-                return null;
-            }
-
-            @Override
-            public Evento fromString(String string) {
-                return null;
-            }
-        });
-    }
-
 }

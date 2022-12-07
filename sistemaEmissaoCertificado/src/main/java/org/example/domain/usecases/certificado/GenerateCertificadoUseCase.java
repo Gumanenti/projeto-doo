@@ -26,7 +26,7 @@ public class GenerateCertificadoUseCase {
         this.sendCertificateByEmailUseCase = sendCertificateByEmailUseCase;
 
     }
-    public void createCertificado(Integer eventoId, String participantCpf){
+    public String createCertificado(Integer eventoId, String participantCpf){
         Certificado certificado = new Certificado();
 
         if (eventoId == null || (participantCpf == null || participantCpf.isEmpty()))
@@ -34,23 +34,25 @@ public class GenerateCertificadoUseCase {
 
         certificado.setParticipante(findParticipanteUseCase.findOne(participantCpf).get());
         certificado.setEvento(findEventoUseCase.findOne(eventoId).get());
+        certificado.setCertificadoStatus(CertificadoStatus.VALID);
+
 
         try {
             generateHashCodeCertificadoUseCase.generatorHashcode(certificado);
             Validator<Certificado> validator = new CertificadoInputRequestValidator();
+
             Notification notification = validator.validate(certificado);
 
             if (notification.hasErrors())
                 throw new IllegalArgumentException(notification.errorMessage());
 
-            certificado.setCertificadoStatus(CertificadoStatus.VALID);
             insert(certificado);
             generatePDFCertificadoUseCase.generatePDF(certificado.getCodigo());
-            sendCertificateByEmailUseCase.sendMail(certificado.getCodigo());
 
         }catch (Exception e){
             System.err.println(e.getMessage());
         }
+        return certificado.getCodigo();
     }
 
     private void insert(Certificado certificado){

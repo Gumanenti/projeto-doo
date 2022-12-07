@@ -49,7 +49,7 @@ public class CertificadoManagementUIController {
         cParticipante.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getParticipante().getNome()));
         cCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         cStatus.setCellValueFactory(new PropertyValueFactory<>("certificadoStatus"));
-        cStatus.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCertificadoStatus().toString()));
+        cStatus.setCellValueFactory(data -> new ReadOnlyStringWrapper(data.getValue().getCertificadoStatus().label));
     }
 
     private void bindTableViewToItensList() {
@@ -62,7 +62,7 @@ public class CertificadoManagementUIController {
         if(selectedItem != null){
             WindowLoader.setRoot("CertificadoUI");
             CertificadoUIController controller = (CertificadoUIController) WindowLoader.getController();
-            controller.setCertificado(selectedItem, UIMode.VIEW);
+            controller.setCertificado(selectedItem);
         }
     }
 
