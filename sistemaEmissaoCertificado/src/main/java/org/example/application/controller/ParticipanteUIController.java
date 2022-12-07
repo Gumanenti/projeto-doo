@@ -52,11 +52,17 @@ public class ParticipanteUIController {
                 updateParticipanteUseCase.update(participante);
             }
         }
-        WindowLoader.setRoot("PreGerarCertificadosUIManagement");
+        if (changeInList)
+            WindowLoader.setRoot("PreGerarCertificadosUIManagement");
+        else
+            WindowLoader.setRoot("ParticipanteManagementUI");
     }
 
     public void backToPreviewScenne() throws IOException {
-        WindowLoader.setRoot("PreGerarCertificadosUIManagement");
+        if (changeInList)
+            WindowLoader.setRoot("PreGerarCertificadosUIManagement");
+        else
+            WindowLoader.setRoot("ParticipanteManagementUI");
     }
 
     public void setParticipante(Participante selectedItem, UIMode mode) {
