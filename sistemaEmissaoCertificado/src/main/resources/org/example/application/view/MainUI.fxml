@@ -20,8 +20,8 @@
       <Button layoutX="27.0" layoutY="302.0" mnemonicParsing="false" onAction="#showEvento" text="Gerenciar Eventos" />
       <Button layoutX="224.0" layoutY="302.0" mnemonicParsing="false" onAction="#showCertificado" prefHeight="25.0" prefWidth="168.0" text="Gerenciar Certificados" />
       <Button layoutX="27.0" layoutY="343.0" mnemonicParsing="false" onAction="#backToLogin" text="Sair" />
-       <Button layoutX="430.0" layoutY="343.0" mnemonicParsing="false" onAction="#generateCertificate" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
-       <Button layoutX="430.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendCertificate" prefHeight="25.0" prefWidth="151.0" text="Enviar Certificado" />
+       <Button layoutX="417.0" layoutY="343.0" mnemonicParsing="false" onAction="#generateCertificate" prefHeight="25.0" prefWidth="151.0" text="Gerar Certificado" />
+       <Button layoutX="233.0" layoutY="343.0" mnemonicParsing="false" onAction="#sendCertificate" prefHeight="25.0" prefWidth="151.0" text="Enviar Certificado" />
       <Button layoutX="404.0" layoutY="302.0" mnemonicParsing="false" onAction="#showParticipante" prefHeight="25.0" prefWidth="177.0" text="Gerenciar Participantes" />
    </children>
 </AnchorPane>
