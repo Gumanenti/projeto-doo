@@ -30,7 +30,7 @@ public class SqliteAdministradorDAO implements AdministradorDAO {
 
     @Override
     public Optional<Administrador> findOne(String key) {
-        String sql = "SELECT * FROM Administrador WHERE login like \"?\"";
+        String sql = "SELECT * FROM Administrador WHERE login = ?";
         Administrador administrador = null;
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
@@ -89,7 +89,7 @@ public class SqliteAdministradorDAO implements AdministradorDAO {
 
     @Override
     public boolean deleteByKey(String key) {
-        String sql = "DELETE FROM Administrador WHERE id = ?";
+        String sql = "DELETE FROM Administrador WHERE login like ?";
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             stmt.setString(1, key);
             stmt.execute();
