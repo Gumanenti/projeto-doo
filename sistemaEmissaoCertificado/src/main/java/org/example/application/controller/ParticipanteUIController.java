@@ -1,6 +1,5 @@
 package org.example.application.controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,7 +13,6 @@ import static org.example.application.main.Main.updateParticipanteUseCase;
 
 
 public class ParticipanteUIController {
-
     @FXML
     private TextField txtNome;
     @FXML
@@ -43,25 +41,25 @@ public class ParticipanteUIController {
         txtCPF.setText(participante.getCpf());
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) throws IOException {
+    public void saveOrUpdate() throws IOException {
         getEntityToView();
         if (participante.getNome() == null){
             createParticipanteUseCase.insert(participante);
         } else {
             updateParticipanteUseCase.update(participante);
         }
-        WindowLoader.setRoot("ParticipanteManagementUI");
+        WindowLoader.setRoot("PreGerarCertificadosUIManagement");
     }
 
-    public void backToPreviewScenne(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("ParticipanteManagementUI");
+    public void backToPreviewScenne() throws IOException {
+        WindowLoader.setRoot("PreGerarCertificadosUIManagement");
     }
 
     public void setParticipante(Participante selectedItem, UIMode mode) {
         if (participante == null){
             throw new IllegalArgumentException("Participante não pode ser nulo");
         } else {
-            this.participante = participante;
+            this.participante = selectedItem;
             setEntityIntoView();
         }
         if (mode == UIMode.VIEW){
@@ -79,4 +77,6 @@ public class ParticipanteUIController {
         txtNome.setDisable(true);
         txtEmail.setDisable(true);
     }
+
+
 }
