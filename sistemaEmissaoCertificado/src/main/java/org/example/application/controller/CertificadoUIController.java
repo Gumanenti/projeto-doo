@@ -69,20 +69,20 @@ public class CertificadoUIController {
         if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
             invalidHashCodeCertificadoUseCase.invalidCertificado(certificado.getCodigo());
         }
-        WindowLoader.setRoot("CertificadoManagementUIController");
+        WindowLoader.setRoot("CertificadoManagementUI");
     }
 
     public void reGenCertificate() throws IOException {
         if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
             regenerateCertificadoUseCase.regenerateCertificado(certificado.getCodigo());
         }
-        WindowLoader.setRoot("CertificadoManagementUIController");
+        WindowLoader.setRoot("CertificadoManagementUI");
     }
 
     public void sendToEmail() throws IOException {
         if (certificado != null && findCertificadoUseCase.findOne(certificado.getCodigo()).isPresent()) {
             sendCertificateByEmailUseCase.sendMail(certificado.getCodigo());
         }
-        WindowLoader.setRoot("CertificadoManagementUIController");
+        WindowLoader.setRoot("CertificadoManagementUI");
     }
 }
