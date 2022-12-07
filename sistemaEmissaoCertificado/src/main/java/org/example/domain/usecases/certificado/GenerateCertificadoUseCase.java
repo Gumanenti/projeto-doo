@@ -43,7 +43,7 @@ public class GenerateCertificadoUseCase {
             if (notification.hasErrors())
                 throw new IllegalArgumentException(notification.errorMessage());
 
-            certificado.setCertificadoStatus(new CertificadoStatus(true));
+            certificado.setCertificadoStatus(CertificadoStatus.VALID);
             insert(certificado);
             generatePDFCertificadoUseCase.generatePDF(certificado.getCodigo());
             sendCertificateByEmailUseCase.sendMail(certificado.getCodigo());

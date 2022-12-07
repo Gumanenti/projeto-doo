@@ -1,6 +1,7 @@
 package org.example.application.repository.sqlite;
 
 import org.example.domain.entities.certificado.Certificado;
+import org.example.domain.entities.certificado.CertificadoStatus;
 import org.example.domain.entities.evento.Evento;
 import org.example.domain.entities.participante.Participante;
 import org.example.domain.usecases.certificado.CertificadoDAO;
@@ -18,12 +19,13 @@ import static org.example.application.main.Main.findParticipanteUseCase;
 public class SqliteCertificadoDAO implements CertificadoDAO {
     @Override
     public String create(Certificado certificado) {
-        String sql = "INSERT INTO Certificado (hashCode, eventId, participantCpf) VALUES (?,?,?)";
+        String sql = "INSERT INTO Certificado (hashCode, eventId, participantCpf, status) VALUES (?,?,?)";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             stmt.setString(1, certificado.getCodigo());
             stmt.setInt(2, certificado.getEvento().getId());
             stmt.setString(3, certificado.getParticipante().getCpf());
+            stmt.setString(4, converterStatusToDB(certificado.getCertificadoStatus()));
 
             stmt.execute();
 
@@ -79,12 +81,13 @@ public class SqliteCertificadoDAO implements CertificadoDAO {
 
     @Override
     public boolean update(Certificado certificado) {
-        String sql = "UPDATE Certificado SET eventId = ?, participantCpf = ? WHERE hashCode = ?";
+        String sql = "UPDATE Certificado SET eventId = ?, participantCpf = ?, status = ? WHERE hashCode = ?";
 
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)){
             stmt.setInt(1, certificado.getEvento().getId());
             stmt.setString(2, certificado.getParticipante().getCpf());
-            stmt.setString(3, certificado.getCodigo());
+            stmt.setString(3, converterStatusToDB(certificado.getCertificadoStatus()));
+            stmt.setString(4, certificado.getCodigo());
             stmt.execute();
 
             return true;
@@ -124,7 +127,29 @@ public class SqliteCertificadoDAO implements CertificadoDAO {
                 evento,
                 participante,
                 rs.getString("hashCode"),
-                null
+                converterDBToStatus(rs.getString("status"))
         );
+    }
+
+    private CertificadoStatus converterDBToStatus(String status) {
+        switch (status){
+            case "valid":
+                return CertificadoStatus.VALID;
+
+            case "invalid":
+                return CertificadoStatus.INVALID;
+        }
+        return null;
+    }
+
+    private String converterStatusToDB(CertificadoStatus status){
+        switch (status){
+            case VALID:
+                return "valid";
+
+            case INVALID:
+                return "invalid";
+        }
+        return null;
     }
 }

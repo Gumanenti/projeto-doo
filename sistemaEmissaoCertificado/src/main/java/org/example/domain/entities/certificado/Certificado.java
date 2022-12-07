@@ -7,7 +7,7 @@ public class Certificado {
     private Evento evento;
     private Participante participante;
     private String codigo;
-    private CertificadoStatus certificadoStatus;
+    private CertificadoStatus status;
     public Certificado() {
     }
 
@@ -19,7 +19,7 @@ public class Certificado {
         this.evento = evento;
         this.participante = participante;
         this.codigo = codigo;
-        this.certificadoStatus = certificadoStatus;
+        this.status = certificadoStatus;
     }
 
     public Evento getEvento() {
@@ -47,11 +47,11 @@ public class Certificado {
     }
 
     public CertificadoStatus getCertificadoStatus() {
-        return certificadoStatus;
+        return status;
     }
 
     public void setCertificadoStatus(CertificadoStatus certificadoStatus) {
-        this.certificadoStatus = certificadoStatus;
+        this.status = certificadoStatus;
     }
 
     public void mostrarDados() {
@@ -59,7 +59,7 @@ public class Certificado {
                 "evento=" + evento.getNome() +
                 ", participante=" + participante.getNome() +
                 ", codigo='" + codigo + '\'' +
-                ", certificadoStatus=" + certificadoStatus.mostrarDados() +
+                ", certificadoStatus=" + status +
                 '}');
     }
 
